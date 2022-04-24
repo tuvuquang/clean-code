@@ -1,104 +1,125 @@
-/* USER CODE BEGIN Header */
-/**
-  ******************************************************************************
-  * @file           : main.c
-  * @brief          : Main program body
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2022 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
-  */
-/* USER CODE END Header */
-/* Includes ------------------------------------------------------------------*/
-#include "main.h"
+/*******************************************************************************
+ *				 _ _                                             _ _
+				|   |                                           (_ _)
+				|   |        _ _     _ _   _ _ _ _ _ _ _ _ _ _   _ _
+				|   |       |   |   |   | |    _ _     _ _    | |   |
+				|   |       |   |   |   | |   |   |   |   |   | |   |
+				|   |       |   |   |   | |   |   |   |   |   | |   |
+				|   |_ _ _  |   |_ _|   | |   |   |   |   |   | |   |
+				|_ _ _ _ _| |_ _ _ _ _ _| |_ _|   |_ _|   |_ _| |_ _|
+								(C)2021 Lumi
+ * Copyright (c) 2021
+ * Lumi, JSC.
+ * All Rights Reserved
+ *
+ * File name: FINAL_EMBEDDED_SYSTEM
+ *
+ * Description: This code is used for tranning Lumi IOT member. It is the code form statandard.
+ * This is main function in application layer.
+ *
+ * Author: Tuvuquang
+ *
+ * Last Changed By:  $Author: tuvq $
+ * Revision:         $Revision: $
+ * Last Changed:     $Date: $Aug 23, 2022
+ *
+ * Code sample:
+ ******************************************************************************/
+/******************************************************************************/
+/*                              INCLUDE FILES                                 */
+/******************************************************************************/
+#include <string.h>
+#include <stdio.h>
 #include "cmsis_os.h"
+#include "lumi-types.h"
+#include "typedefs.h"
+#include "main.h"
+/******************************************************************************/
+/*                     EXPORTED TYPES and DEFINITIONS                         */
+/******************************************************************************/
+#define __DEBUG__
+#define BUFF_SIZE                    3
 
-/* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
-#include "string.h"
-#include "stdio.h"
-/* USER CODE END Includes */
+// LCD ADDRESS
+#define SLAVE_ADDRESS_LCD            0x4E
 
-/* Private typedef -----------------------------------------------------------*/
-/* USER CODE BEGIN PTD */
+// DHT11 PORT & PIN
+#define DHT11_PORT                   GPIOB
+#define DHT11_PIN                    GPIO_PIN_10
+
+/* USER CODE BEGIN PFP */
+#ifdef _GNUC_
+#define PUTi8_t_PROTOTYPE i32_t __io_putchar(i32_t ch)
+#else
+#define PUTCHAR_PROTOTYPE i32_t fputc(i32_t ch, FILE *f)
+#endif /* _GNUC_ */
+
+// TEM & ACCEL
 typedef struct
 {
-	uint8_t type; // 1: doc nhiet do, do am || 2: doc accel 
-	float data_x;
-	float data_y;
-	float data_z;
+	i8_t type; 
+	float dataAccelX;
+	float dataAccelY;
+	float dataAccelZ;
 	float temp;
-	uint8_t cnt;
-} data_t;
-/* USER CODE END PTD */
-
-/* Private define ------------------------------------------------------------*/
-/* USER CODE BEGIN PD */
-#define __DEBUG__
-
-#define buffSize 3
-
-#define SLAVE_ADDRESS_LCD 0x4E
-
-#define MPU6050_ADDR 0xD0
-#define SMPLRT_DIV_REG 0x19
-#define GYRO_CONFIG_REG 0x1B
-#define ACCE_CONFIG_REG 0x1C
-#define ACCE_XOUT_H_REG 0x3B
-#define TEMP_OUT_H_REG 0x41
-#define GYRO_XOUT_H_REG 0x43
-#define PWR_MGMT_1_REG 0x6B
-#define WHO_AM_I_REG 0x75
-
-#define DHT11_PORT GPIOB
-#define DHT11_PIN GPIO_PIN_10
-/* USER CODE END PD */
-
-/* Private macro -------------------------------------------------------------*/
-/* USER CODE BEGIN PM */
-
-/* USER CODE END PM */
-
-/* Private variables ---------------------------------------------------------*/
+	i8_t cnt;
+} DataTemAndAccel_t;
+/******************************************************************************/
+/*                              PRIVATE DATA                                  */
+/******************************************************************************/
 I2C_HandleTypeDef hi2c1;
-
 TIM_HandleTypeDef htim1;
-
 UART_HandleTypeDef huart2;
 
-//osThreadId defaultTaskHandle;
-osMessageQId myQueue01Handle;
 /* USER CODE BEGIN PV */
-//PV_UART____________________________________
-char buff[8];
-uint8_t dataRx;
-uint8_t rx_Data[buffSize];
-uint8_t rx_Index = 0;
-uint8_t count_print = 0;
+//PV_UART
+i8_t ibBuff[8];
+i8_t ibDataRx;
+i8_t ibReceive;
+i8_t ibReceiveData[BUFF_SIZE]
+i8_t ibRxIndex = 0;
+i8_t ibCountPrint = 0;
+i8_t ibRxData;
+//end PV_UART
 
-uint8_t rx_data;
-//end PV_UART________________________________
-
-uint16_t count = 0;
-int16_t Accel_X_Raw, Accel_Y_Raw, Accel_Z_Raw;
+u16_t wCount = 0;
+i16_t iwAccelAxRaw, iwAccelAyRaw, iwAccelAzRaw;
 float Ax, Ay, Az;
-int16_t Gyro_X_Raw, Gyro_Y_Raw, Gyro_Z_Raw;
+i16_t iwGyroAxRaw, iwGyroAyRaw, Gyro_Z_Raw;
 float Gx, Gy, Gz;
 
-uint8_t RHI, RHD, TCI, TCD, SUM;
-uint32_t pMillis, cMillis;
+i8_ RHI, RHD, TCI, TCD, SUM;
+u32_t pMillis, cMillis;
 float tCelsius = 0;
 float tFahrenheit = 0;
 float RH = 0;
 
+/******************************************************************************/
+/*                              EXPORTED DATA                                 */
+/******************************************************************************/
+
+/******************************************************************************/
+/*                            PRIVATE FUNCTIONS                               */
+/******************************************************************************/
+static void_t MX_GPIO_Init(void_t);
+static void_t MX_USART2_UART_Init(void_t);
+static void_t MX_I2C1_Init(void_t);
+static void_t MX_TIM1_Init(void_t);
+static void_t systemClockConfig(void_t);
+static void_t startReadTempTask(void_t const * argument); 
+static void_t startReadAccelTask(void_t const * argument); 
+static void_t startSendDataTask(void_t const * argument);
+static void_t startSendCOMTask(void_t const * argument);
+
+/******************************************************************************/
+/*                            EXPORTED FUNCTIONS                              */
+/******************************************************************************/
+
+/******************************************************************************/
+
+
+//osThreadId defaultTaskHandle;
+osMessageQId myQueue01Handle;
 osThreadId readTempHandle;
 osThreadId readAccelHandle;
 osThreadId sendDataHandle;
@@ -108,26 +129,7 @@ osMailQId DataMailQueueHandle;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
-void SystemClock_Config(void);
-static void MX_GPIO_Init(void);
-static void MX_USART2_UART_Init(void);
-static void MX_I2C1_Init(void);
-static void MX_TIM1_Init(void);
-
-/* USER CODE BEGIN PFP */
-#ifdef _GNUC_
-#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
-#else
-#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
-#endif /* _GNUC_ */
-
-void StartReadTempTask(void const * argument); // task doc nhiet do
-
-void StartReadAccelTask(void const * argument); // task doc cam bien gia toc
-
-void StartSendDataTask(void const * argument); // task hien thi len LCD
-
-void StartSendCOMTask(void const * argument); // task hien thi len Hercules
+ // task hien thi len Hercules
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -136,98 +138,144 @@ PUTCHAR_PROTOTYPE
 {
 /* Place your implementation of fputc here */
 /* e.g. write a character to the USART */
-HAL_UART_Transmit(&huart2, (uint8_t *)&ch, 1, 100);
+HAL_UART_Transmit(&huart2, (i8_t *)&ch, 1, 100);
 return ch;
 }
 
-//I2C LCD...........................................
-void lcd_send_cmd (char cmd)
+
+/*==========================START I2C_LCD======================================*/
+/**
+ * @func   lcdSendCmd
+ * @brief  LCD send command
+ * @param  None
+ * @retval None
+ */
+void_t lcdSendCmd (i8_t cmd)
 {
-  char data_u, data_l;
-	uint8_t data_t[4];
+  i8_t data_u, data_l;
+	i8_t data_t[4];
 	data_u = (cmd&0xf0);
 	data_l = ((cmd<<4)&0xf0);
 	data_t[0] = data_u|0x0C;  //en=1, rs=0
 	data_t[1] = data_u|0x08;  //en=0, rs=0
 	data_t[2] = data_l|0x0C;  //en=1, rs=0
 	data_t[3] = data_l|0x08;  //en=0, rs=0
-	HAL_I2C_Master_Transmit (&hi2c1, SLAVE_ADDRESS_LCD,(uint8_t *) data_t, 4, 100);
+	HAL_I2C_Master_Transmit (&hi2c1, SLAVE_ADDRESS_LCD,(i8_t *) data_t, 4, 100);
 }
 
-void lcd_send_data (char data)
+/**
+ * @func   lcdSendData
+ * @brief  send dat to LCD
+ * @param  None
+ * @retval None
+ */
+void_t lcdSendData (i8_t data)
 {
-	char data_u, data_l;
-	uint8_t data_t[4];
-	data_u = (data&0xf0);
+	i8_t data_u, data_l;
+	i8_t data_t[4];
+  data_u = (data&0xf0);
 	data_l = ((data<<4)&0xf0);
 	data_t[0] = data_u|0x0D;  //en=1, rs=0
 	data_t[1] = data_u|0x09;  //en=0, rs=0
 	data_t[2] = data_l|0x0D;  //en=1, rs=0
 	data_t[3] = data_l|0x09;  //en=0, rs=0
-	HAL_I2C_Master_Transmit (&hi2c1, SLAVE_ADDRESS_LCD,(uint8_t *) data_t, 4, 100);
+	HAL_I2C_Master_Transmit (&hi2c1, SLAVE_ADDRESS_LCD,(i8_t *) data_t, 4, 100);
 }
 
-void lcd_clear (void)
+/**
+ * @func   lcdClear
+ * @brief  clear LCD
+ * @param  None
+ * @retval None
+ */
+void_t lcdClear (void_t)
 {
-	lcd_send_cmd (0x80);
-	for (int i=0; i<16; i++)
+	lcdSendCmd (0x80);
+	for (i32_t i=0; i<16; i++)
 	{
-		lcd_send_data (' ');
+		lcdSendData (' ');
 	}
-	lcd_send_cmd(0x80);    
+	lcdSendCmd(0x80);    
 }
 
-void lcd_put_cur(int row, int col)
+/**
+ * @func   lcdPutCur
+ * @brief  
+ * @param  None
+ * @retval None
+ */
+
+void_t lcdPutCur(i32_t idwRow, i32_t idwCol)
 {
-    switch (row)
+    switch (idwRow)
     {
         case 0:
-            col |= 0x80;
+            idwCol |= 0x80;
             break;
         case 1:
-            col |= 0xC0;
+            idwCol |= 0xC0;
             break;
     }
 
-    lcd_send_cmd (col);
+    lcdSendCmd (idwCol);
 }
 
 
-void lcd_init (void)
+/**
+ * @func   lcdInit
+ * @brief  Init LCD
+ * @param  None
+ * @retval None
+ */
+
+void_t lcdInit (void_t)
 {
 	// 4 bit initialisation
 	HAL_Delay(50);  // wait for >40ms
-	lcd_send_cmd (0x30);
+	lcdSendCmd (0x30);
 	HAL_Delay(5);  // wait for >4.1ms
-	lcd_send_cmd (0x30);
+	lcdSendCmd (0x30);
 	HAL_Delay(1);  // wait for >100us
-	lcd_send_cmd (0x30);
+	lcdSendCmd (0x30);
 	HAL_Delay(10);
-	lcd_send_cmd (0x20);  // 4bit mode
+	lcdSendCmd (0x20);  // 4bit mode
 	HAL_Delay(10);
 
   // dislay initialisation
-	lcd_send_cmd (0x28); // Function set --> DL=0 (4 bit mode), N = 1 (2 line display) F = 0 (5x8 characters)
+	lcdSendCmd (0x28); // Function set --> DL=0 (4 bit mode), N = 1 (2 line display) F = 0 (5x8 characters)
 	HAL_Delay(1);
-	lcd_send_cmd (0x08); //Display on/off control --> D=0,C=0, B=0  ---> display off
+	lcdSendCmd (0x08); //Display on/off control --> D=0,C=0, B=0  ---> display off
 	HAL_Delay(1);
-	lcd_send_cmd (0x01);  // clear display
+	lcdSendCmd (0x01);  // clear display
 	HAL_Delay(1);
 	HAL_Delay(1);
-	lcd_send_cmd (0x06); //Entry mode set --> I/D = 1 (increment cursor) & S = 0 (no shift)
+	lcdSendCmd (0x06); //Entry mode set --> I/D = 1 (increment cursor) & S = 0 (no shift)
 	HAL_Delay(1);
-	lcd_send_cmd (0x0C); //Display on/off control --> D = 1, C and B = 0. (Cursor and blink, last two bits)
+	lcdSendCmd (0x0C); //Display on/off control --> D = 1, C and B = 0. (Cursor and blink, last two bits)
 }
 
-void lcd_send_string (char *str)
+/**
+ * @func   lcdSendString
+ * @brief  send string to LCD
+ * @param  None
+ * @retval None
+ */
+void_t lcdSendString (i8_t *str)
 {
-	while (*str) lcd_send_data (*str++);
+	while (*str) lcdSendData (*str++);
 }
-//end i2c_LCD________________________________________________________________
-//MPU-6050___________________________________________________________________
+/*========================END  I2C_LCD ========================================*/
 
-void MPU6050_Init(void){
-uint8_t check, data;
+
+/*=============================READ MPU-6050 SENSOR============================*/
+/**
+ * @func   MPU_Init
+ * @brief  Init MPU
+ * @param  None
+ * @retval None
+ */
+void_t MPU6050_Init(void_t){
+i8_t check, data;
 	HAL_I2C_Mem_Read(&hi2c1,MPU6050_ADDR,WHO_AM_I_REG,1,&check,1,1000);
 	if(check == 104){
 	data = 0x00;	
@@ -239,50 +287,79 @@ uint8_t check, data;
   HAL_I2C_Mem_Write(&hi2c1,MPU6050_ADDR,GYRO_CONFIG_REG,1,&data,1,1000);		
 	}
 }
-void MPU6050_Read_Accel(void){
-uint8_t Rec_data[6];
+
+/**
+ * @func   MPU_ReadAccel
+ * @brief  read Accel
+ * @param  None
+ * @retval None
+ */
+void_t MPU6050_readAccel(void_t){
+i8_t Rec_data[6];
 HAL_I2C_Mem_Read(&hi2c1,MPU6050_ADDR, ACCE_XOUT_H_REG, 1, Rec_data,6,1000);
-Accel_X_Raw = Rec_data[0] <<8|Rec_data[1];
-Ax = Accel_X_Raw/16384.0;
-Accel_Y_Raw = Rec_data[2] <<8|Rec_data[3];
-Ay = Accel_Y_Raw/16384.0;
-Accel_Z_Raw = Rec_data[4] <<8|Rec_data[5];
-Az = Accel_Z_Raw/16384.0;
+iwAccelAxRaw = Rec_data[0] <<8|Rec_data[1];
+Ax = iwAccelAxRaw/16384.0;
+iwAccelAyRaw = Rec_data[2] <<8|Rec_data[3];
+Ay = iwAccelAyRaw/16384.0;
+iwAccelAzRaw = Rec_data[4] <<8|Rec_data[5];
+Az = iwAccelAzRaw/16384.0;
 }
-void MPU6050_Read_Gyro(void){
-uint8_t Rec_data[6];
+
+/**
+ * @func   MPU6050_readGyro
+ * @brief  read Gyro
+ * @param  None
+ * @retval None
+ */
+
+void_t MPU6050_readGyro(void_t){
+i8_t Rec_data[6];
 HAL_I2C_Mem_Read(&hi2c1,MPU6050_ADDR,GYRO_XOUT_H_REG,1,Rec_data,6,1000);
-Gyro_X_Raw = Rec_data[0] <<8|Rec_data[1];
-Gx = Gyro_X_Raw/131.0;
-Gyro_Y_Raw = Rec_data[2] <<8|Rec_data[3];
-Gy = Gyro_Y_Raw/131.0;
+iwGyroAxRaw = Rec_data[0] <<8|Rec_data[1];
+Gx = iwGyroAxRaw/131.0;
+iwGyroAyRaw = Rec_data[2] <<8|Rec_data[3];
+Gy = iwGyroAyRaw/131.0;
 Gyro_Z_Raw = Rec_data[4] <<8|Rec_data[5];
 Gz = Gyro_Z_Raw/131.0;
 }
-//end MPU-6050__________________________________________________________
-//DHT-11________________________________________________________________
-void microDelay (uint16_t delay)
+/*===================end MPU-6050==============================================*/
+
+
+/*===================== DHT 11=================================================*/
+
+/**
+ * @func   microDelay
+ * @brief  delay 1 ms
+ * @param  None
+ * @retval None
+ */
+void_t microDelay (u16_t delay)
 {
   __HAL_TIM_SET_COUNTER(&htim1, 0);
   while (__HAL_TIM_GET_COUNTER(&htim1) < delay);
 }
-
-uint8_t DHT11_Start (void)
+/**
+ * @func   DHT11_start
+ * @brief  read Gyro
+ * @param  None
+ * @retval None
+ */
+i8_t DHT11_start (void_t)
 {
-  uint8_t Response = 0;
+  i8_t Response = 0;
   GPIO_InitTypeDef GPIO_InitStructPrivate = {0};
   GPIO_InitStructPrivate.Pin = DHT11_PIN;
   GPIO_InitStructPrivate.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStructPrivate.Speed = GPIO_SPEED_FREQ_LOW;
   GPIO_InitStructPrivate.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(DHT11_PORT, &GPIO_InitStructPrivate); // set the pin as output
-  HAL_GPIO_WritePin (DHT11_PORT, DHT11_PIN, 0);   // pull the pin low
-  HAL_Delay(20);   // wait for 20ms
-  HAL_GPIO_WritePin (DHT11_PORT, DHT11_PIN, 1);   // pull the pin high
-  microDelay (30);   // wait for 30us
+  HAL_GPIO_Init(DHT11_PORT, &GPIO_InitStructPrivate);   // set the pin as output
+  HAL_GPIO_WritePin (DHT11_PORT, DHT11_PIN, 0);         // pull the pin low
+  HAL_Delay(20);                                        // wait for 20ms
+  HAL_GPIO_WritePin (DHT11_PORT, DHT11_PIN, 1);         // pull the pin high
+  microDelay (30);                                      // wait for 30us
   GPIO_InitStructPrivate.Mode = GPIO_MODE_INPUT;
   GPIO_InitStructPrivate.Pull = GPIO_PULLUP;
-  HAL_GPIO_Init(DHT11_PORT, &GPIO_InitStructPrivate); // set the pin as input
+  HAL_GPIO_Init(DHT11_PORT, &GPIO_InitStructPrivate);   // set the pin as input
   microDelay (40);
   if (!(HAL_GPIO_ReadPin (DHT11_PORT, DHT11_PIN)))
   {
@@ -297,10 +374,15 @@ uint8_t DHT11_Start (void)
   }
   return Response;
 }
-
-uint8_t DHT11_Read (void)
+/**
+ * @func   DHT11_read
+ * @brief  read data from DHT11
+ * @param  None
+ * @retval None
+ */
+i8_t DHT11_Read (void_t)
 {
-  uint8_t a,b;
+  i8_t a,b;
   for (a=0;a<8;a++)
   {
     pMillis = HAL_GetTick();
@@ -323,31 +405,43 @@ uint8_t DHT11_Read (void)
   }
   return b;
 }
-//end DHT-11___________________________________________________________________
-//Define execution tasks
-void sendToLCD(float temp, float x, float y, float z)
+/*===============================END DHT-11==============================================*/
+
+/*===============================DEFINE EXECUTION TASKS==================================*/
+/**
+ * @func   senToLCD
+ * @brief  send data to LCD
+ * @param  None
+ * @retval None
+ */
+void_t sendToLCD(float temp, float x, float y, float z)
 {
 	//send data to LCD
-		lcd_clear();
+		lcdClear();
 		sprintf(buff, "%0.1f", x); //gia toc truc x
-		lcd_send_string("Ax=");
-		lcd_send_string(buff);
-		lcd_put_cur(0, 8);
+		lcdSendString("Ax=");
+		lcdSendString(ibBuff);
+		lcdPutCur(0, 8);
 		sprintf(buff, "%0.1f", y); //gia toc truc y
-		lcd_send_string("Ay=");
-		lcd_send_string(buff);
-		lcd_put_cur(1,0);
+		lcdSendString("Ay=");
+		lcdSendString(buff);
+		lcdPutCur(1,0);
 		sprintf(buff, "%0.1f", z); //gia toc truc z
-		lcd_send_string("Az=");
-		lcd_send_string(buff);
-		lcd_put_cur(1, 8);
+		lcdSendString("Az=");
+		lcdSendString(buff);
+		lcdPutCur(1, 8);
 		sprintf(buff, "%0.1f", temp); //nhiet do lay tu DHT-11
-		lcd_send_string("T=");
-		lcd_send_string(buff);
+		lcdSendString("T=");
+		lcdSendString(buff);
 }
 
-//Doc du lieu tu DHT-11
-void getDataDHT(void)
+/**
+ * @func   getDataDHT
+ * @brief  read data from DHT
+ * @param  None
+ * @retval None
+ */
+void_t getDataDHT(void_t)
 {
 		if(DHT11_Start())
     {
@@ -367,41 +461,26 @@ void getDataDHT(void)
     }
 }
 
-//gui du lieu len hercules
-void sendToCOM(void)
+/**
+ * @func   senToCOM
+ * @brief  send data to heculus
+ * @param  None
+ * @retval None
+ */
+void_t sendToCOM(void_t)
 {
 	printf("Ax: %0.1f, Ay:%0.1f, Az:%0.1f, T: %0.1f\n", Ax, Ay, Az, tCelsius);
 }
-//End define execution tasks
-/* USER CODE END 0 */
+/*============================END DEFINE EXECUTION TASKS===========================*/
 
 /**
   * @brief  The application entry point.
   * @retval int
   */
-int main(void)
+int main(void_t)
 {
-  /* USER CODE BEGIN 1 */
-
-  /* USER CODE END 1 */
-
-  /* MCU Configuration--------------------------------------------------------*/
-
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
-
-  /* USER CODE BEGIN Init */
-
-  /* USER CODE END Init */
-
-  /* Configure the system clock */
-  SystemClock_Config();
-
-  /* USER CODE BEGIN SysInit */
-
-  /* USER CODE END SysInit */
-
-  /* Initialize all configured peripherals */
+  systemClockConfig();
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   MX_I2C1_Init();
@@ -409,79 +488,50 @@ int main(void)
   /* USER CODE BEGIN 2 */
 	HAL_TIM_Base_Start(&htim1);
 	MPU6050_Init();
-	HAL_UART_Receive_IT(&huart2, &rx_data, 1);
-	lcd_init();
-	lcd_send_string("Initializing...");
-	/* USER CODE END 2 */
-
-  /* USER CODE BEGIN RTOS_MUTEX */
-  /* add mutexes, ... */
-  /* USER CODE END RTOS_MUTEX */
-
-  /* USER CODE BEGIN RTOS_SEMAPHORES */
-  /* add semaphores, ... */
-  /* USER CODE END RTOS_SEMAPHORES */
-
-  /* USER CODE BEGIN RTOS_TIMERS */
-  /* start timers, add new ones, ... */
-  /* USER CODE END RTOS_TIMERS */
-
-  /* Create the queue(s) */
-  /* definition and creation of myQueue01 */
-  osMessageQDef(myQueue01, 14, uint32_t);
+	HAL_UART_Receive_IT(&huart2, &ibRxData, 1);
+	lcdInit();
+	lcdSendString("Initializing...");
+	
+  osMessageQDef(myQueue01, 14, u32_t);
   myQueue01Handle = osMessageCreate(osMessageQ(myQueue01), NULL);
-
-  /* USER CODE BEGIN RTOS_QUEUES */
-  /* add queues, ... */
 	osMailQDef(DataMailQueue, 16, data_t);
 	DataMailQueueHandle = osMailCreate(osMailQ(DataMailQueue), NULL); // khoi tao mail queue
   /* USER CODE END RTOS_QUEUES */
-
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
 
-  /*===============================Begin: Khoi tao cac task=============================*/
-	osThreadDef(readAccelTask, StartReadAccelTask, osPriorityNormal, 0, 96);
+  /*===============================Begin: Khoi tao cac task==============================*/
+	osThreadDef(readAccelTask, startReadAccelTask, osPriorityNormal, 0, 96);
   readAccelHandle = osThreadCreate(osThread(readAccelTask), NULL);
 	
-	osThreadDef(sendDataTask, StartSendDataTask, osPriorityAboveNormal, 0, 96);
+	osThreadDef(sendDataTask, startSendDataTask, osPriorityAboveNormal, 0, 96);
   sendDataHandle = osThreadCreate(osThread(sendDataTask), NULL);
 	
-	osThreadDef(readTempTask, StartReadTempTask, osPriorityNormal, 0, 96);
+	osThreadDef(readTempTask, startReadTempTask, osPriorityNormal, 0, 96);
   readTempHandle = osThreadCreate(osThread(readTempTask), NULL);
 	
-	osThreadDef(sendCOMTask, StartSendCOMTask, osPriorityHigh, 0, 96);
+	osThreadDef(sendCOMTask, startSendCOMTask, osPriorityHigh, 0, 96);
   sendCOMHandle = osThreadCreate(osThread(sendCOMTask), NULL);
-/*===============================End: Khoi tao cac task=============================*/
+/*===============================End: Khoi tao cac task===================================*/
 
-	
-	
-  /* USER CODE END RTOS_THREADS */
-
-  /* Start scheduler */
   osKernelStart();
 
-  /* We should never get here as control is now taken by the scheduler */
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
+  
   while (1)
   {
-    /* USER CODE END WHILE */
-
-    /* USER CODE BEGIN 3 */
+ 
 
   }
-  /* USER CODE END 3 */
+
 }
 
 /**
   * @brief System Clock Configuration
   * @retval None
   */
-void SystemClock_Config(void)
+void_t systemClockConfig(void_t)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
@@ -520,7 +570,7 @@ void SystemClock_Config(void)
   * @param None
   * @retval None
   */
-static void MX_I2C1_Init(void)
+static void_t MX_I2C1_Init(void_t)
 {
 
   /* USER CODE BEGIN I2C1_Init 0 */
@@ -554,7 +604,7 @@ static void MX_I2C1_Init(void)
   * @param None
   * @retval None
   */
-static void MX_TIM1_Init(void)
+static void_t MX_TIM1_Init(void_t)
 {
 
   /* USER CODE BEGIN TIM1_Init 0 */
@@ -600,7 +650,7 @@ static void MX_TIM1_Init(void)
   * @param None
   * @retval None
   */
-static void MX_USART2_UART_Init(void)
+static void_t MX_USART2_UART_Init(void_t)
 {
 
   /* USER CODE BEGIN USART2_Init 0 */
@@ -633,7 +683,7 @@ static void MX_USART2_UART_Init(void)
   * @param None
   * @retval None
   */
-static void MX_GPIO_Init(void)
+static void_t MX_GPIO_Init(void_t)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
 
@@ -685,21 +735,31 @@ static void MX_GPIO_Init(void)
  ******************************************************************************/
 
 
-/*============================Ham xu ly ngat UART=====================================*/
-		void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+/**
+ * @func   HAL_UART_RxCpltCallback
+ * @brief  xu ly ngat uart
+ * @param  None
+ * @retval None
+ */
+		void_t HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 		{
 			BaseType_t xHigher;
-			if (rx_data == 'h') 
+			if (ibRxData == 'h') 
 			{
 				xHigher = xTaskResumeFromISR(sendCOMHandle);
 				portEND_SWITCHING_ISR(xHigher);
 			}
-			HAL_UART_Receive_IT(&huart2, &rx_data, 1);
+			HAL_UART_Receive_IT(&huart2, &ibRxData, 1);
 		}
 
-/*============================Ham gui len Hercules=====================================*/
+/**
+ * @func   startSendCOMTask
+ * @brief  gui data len herculus
+ * @param  None
+ * @retval None
+ */
 
-		void StartSendCOMTask(void const * argument) 
+		void_t startSendCOMTask(void_t const * argument) 
 		{
 			osEvent recv_task_data;//su kien 
 			while(1) 
@@ -708,13 +768,18 @@ static void MX_GPIO_Init(void)
 				printf("Lay du lieu tu ngat\n");
 				recv_task_data = osMailGet(DataMailQueueHandle, 100);
 				data_t *data = recv_task_data.value.p;//chi ra rang thong bao la mot con tro
-				printf("Ax: %0.1f, Ay: %0.1f, Az: %0.1f, T: %0.1f \n", data->data_x, data->data_y, data->data_z, data->temp);
+				printf("Ax: %0.1f, Ay: %0.1f, Az: %0.1f, T: %0.1f \n", data->dataAccelX, data->dataAccelY, data->dataAccelZ, data->temp);
 				osMailFree(DataMailQueueHandle, data);
 			}
 		}
 
-/*============================Ham doc nhiet do=====================================*/
-		void StartReadTempTask(void const * argument)
+/**
+ * @func   startReadTempTask
+ * @brief  task doc nhiet do
+ * @param  None
+ * @retval None
+ */
+		void_t startReadTempTask(void_t const * argument)
 		{
 			while(1)
 			{
@@ -723,54 +788,64 @@ static void MX_GPIO_Init(void)
 				data_t *task_data = osMailAlloc(DataMailQueueHandle, 100);
 				task_data->type = 1;
 				task_data->temp = tCelsius;
-				task_data->data_x = Ax;
-				task_data->data_y = Ay;
-				task_data->data_z = Az;
-				task_data->cnt = count;
-				osMailPut(DataMailQueueHandle,(void *)task_data);
-				count++;
+				task_data->dataAccelX = Ax;
+				task_data->dataAccelY = Ay;
+				task_data->dataAccelZ = Az;
+				task_data->cnt = wCount;
+				osMailPut(DataMailQueueHandle,(void_t *)task_data);
+				wCount++;
 				osDelay(1000);
 			}
 		}
-/*============================Ham doc gia toc=====================================*/
+/**
+ * @func   startReadAccelTask
+ * @brief  task doc gia toc
+ * @param  None
+ * @retval None
+ */
 
-		void StartReadAccelTask(void const * argument)
+		void_t startReadAccelTask(void_t const * argument)
 		{
 			while(1)
 			{
-				MPU6050_Read_Accel();
+				MPU6050_readAccel();
 				//phan bo hang doi thu va dien du lieu vao do
 				data_t *task_data = osMailAlloc(DataMailQueueHandle, 100);//phan bo hang doi thu trong mot chuoi va dien vao no voi du lieu
 				task_data->type = 2;
 				task_data->temp = tCelsius;
-				task_data->data_x = Ax;
-				task_data->data_y = Ay;
-				task_data->data_z = Az;
-				task_data->cnt = count;
-				osMailPut(DataMailQueueHandle,(void *)task_data);
-				count++;
+				task_data->dataAccelX = Ax;
+				task_data->dataAccelY = Ay;
+				task_data->dataAccelZ = Az;
+				task_data->cnt = wCount;
+				osMailPut(DataMailQueueHandle,(void_t *)task_data);
+				wCount++;
 				osDelay(200);
 			}
 		}
-/*============================Ham hien thi len LCD=====================================*/
-		void StartSendDataTask(void const * argument)
+/**
+ * @func   startSendDataTask
+ * @brief  task hien thi LCD
+ * @param  None
+ * @retval None
+ */
+		void_t startSendDataTask(void_t const * argument)
 		{
 			osEvent recv_task_data;//su kien nhan task data
 			
-		//	uint32_t recv_ISR_data;
+		//	u32_t recv_ISR_data;
 			while(1)
 			{
 				
 				recv_task_data = osMailGet(DataMailQueueHandle, 100);
 				data_t *data = recv_task_data.value.p;
 				if (data->type == 1) {
-					sendToLCD(data->temp, data->data_x, data->data_y, data->data_z);
+					sendToLCD(data->temp, data->dataAccelX, data->dataAccelY, data->dataAccelZ);
 					osMailFree(DataMailQueueHandle, data);
-					count--;
+					wCount--;
 				} else if (data->type == 2) {
-					sendToLCD(data->temp, data->data_x, data->data_y, data->data_z); 
+					sendToLCD(data->temp, data->dataAccelX, data->dataAccelY, data->dataAccelZ); 
 					osMailFree(DataMailQueueHandle, data);
-					count--;
+					wCount--;
 					osDelay(200);
 				} 
 			}
@@ -796,7 +871,7 @@ static void MX_GPIO_Init(void)
   * @retval None
   */
 /* USER CODE END Header_StartDefaultTask */
-//void StartDefaultTask(void const * argument)
+//void_t StartDefaultTask(void_t const * argument)
 //{
 //  /* USER CODE BEGIN 5 */
 //  /* Infinite loop */
@@ -815,7 +890,7 @@ static void MX_GPIO_Init(void)
   * @param  htim : TIM handle
   * @retval None
   */
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+void_t HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
   /* USER CODE BEGIN Callback 0 */
 
@@ -832,7 +907,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   * @brief  This function is executed in case of error occurrence.
   * @retval None
   */
-void Error_Handler(void)
+void_t Error_Handler(void_t)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
@@ -851,7 +926,7 @@ void Error_Handler(void)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t *file, uint32_t line)
+void_t assert_failed(i8_t *file, u32_t line)
 {
   /* USER CODE BEGIN 6 */
   /* User can add his own implementation to report the file name and line number,
