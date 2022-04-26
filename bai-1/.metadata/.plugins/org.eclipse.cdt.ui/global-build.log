@@ -1,0 +1,638 @@
+10:51:56 **** Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Startup/startup_stm32f401retx.d" -MT"Startup/startup_stm32f401retx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Startup/startup_stm32f401retx.o" "../Startup/startup_stm32f401retx.s"
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F401RE -DSTM32 -DSTM32F401RETx -DSTM32F4 -c -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/CMSIS/Include" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/STM32F401RE_StdPeriph_Driver/inc" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/button" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/buzzer" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/led" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/rtos" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/sensor" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/serial" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/ucglib" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Utilities" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F401RE -DSTM32 -DSTM32F401RETx -DSTM32F4 -c -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/CMSIS/Include" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/STM32F401RE_StdPeriph_Driver/inc" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/button" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/buzzer" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/led" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/rtos" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/sensor" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/serial" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/ucglib" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Utilities" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/syscalls.o"
+arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F401RE -DSTM32 -DSTM32F401RETx -DSTM32F4 -c -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/CMSIS/Include" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/STM32F401RE_StdPeriph_Driver/inc" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/button" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/buzzer" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/led" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/rtos" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/sensor" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/serial" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/ucglib" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Utilities" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/sysmem.o"
+arm-none-eabi-gcc -o "Bai5.1.elf" @"objects.list"  -lLibraries -mcpu=cortex-m4 -T"E:\Funix_303_iot\Lab5\Bai5.1\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bai5.1.map" -Wl,--gc-sections -static -L"E:\Funix_302_iot\Thuvien\SDK_1.0.3_NUCLEO-F401RE\lib_stm" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bai5.1.elf
+ 
+arm-none-eabi-size   Bai5.1.elf 
+arm-none-eabi-objdump -h -S  Bai5.1.elf  > "Bai5.1.list"
+arm-none-eabi-objcopy  -O binary  Bai5.1.elf  "Bai5.1.bin"
+   text	   data	    bss	    dec	    hex	filename
+    656	      8	   1568	   2232	    8b8	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bai5.1.list
+ 
+Finished building: Bai5.1.bin
+ 
+11:24:26 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F401RE -DSTM32 -DSTM32F401RETx -DSTM32F4 -c -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/CMSIS/Include" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/STM32F401RE_StdPeriph_Driver/inc" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/button" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/buzzer" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/led" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/rtos" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/sensor" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/serial" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/ucglib" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Utilities" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c: In function 'I2C_InitMaster':
+../Src/main.c:76:18: warning: unused variable 'I2C_InitStruct' [-Wunused-variable]
+   76 |  I2C_InitTypeDef I2C_InitStruct;
+      |                  ^~~~~~~~~~~~~~
+At top level:
+../Src/main.c:96:13: warning: 'I2C_InitSlave' defined but not used [-Wunused-function]
+   96 | static void I2C_InitSlave(void)
+      |             ^~~~~~~~~~~~~
+../Src/main.c:72:13: warning: 'I2C_InitMaster' defined but not used [-Wunused-function]
+   72 | static void I2C_InitMaster(void)
+      |             ^~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Bai5.1.elf" @"objects.list"  -lLibraries -mcpu=cortex-m4 -T"E:\Funix_303_iot\Lab5\Bai5.1\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bai5.1.map" -Wl,--gc-sections -static -L"E:\Funix_302_iot\Thuvien\SDK_1.0.3_NUCLEO-F401RE\lib_stm" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bai5.1.elf
+ 
+arm-none-eabi-size   Bai5.1.elf 
+arm-none-eabi-objdump -h -S  Bai5.1.elf  > "Bai5.1.list"
+arm-none-eabi-objcopy  -O binary  Bai5.1.elf  "Bai5.1.bin"
+   text	   data	    bss	    dec	    hex	filename
+    656	      8	   1568	   2232	    8b8	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bai5.1.bin
+ 
+Finished building: Bai5.1.list
+ 
+11:26:04 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F401RE -DSTM32 -DSTM32F401RETx -DSTM32F4 -c -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/CMSIS/Include" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/STM32F401RE_StdPeriph_Driver/inc" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/button" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/buzzer" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/led" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/rtos" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/sensor" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/serial" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/ucglib" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Utilities" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c: In function 'I2C_InitMaster':
+../Src/main.c:76:18: warning: unused variable 'I2C_InitStruct' [-Wunused-variable]
+   76 |  I2C_InitTypeDef I2C_InitStruct;
+      |                  ^~~~~~~~~~~~~~
+At top level:
+../Src/main.c:97:13: warning: 'I2C_InitSlave' defined but not used [-Wunused-function]
+   97 | static void I2C_InitSlave(void)
+      |             ^~~~~~~~~~~~~
+../Src/main.c:72:13: warning: 'I2C_InitMaster' defined but not used [-Wunused-function]
+   72 | static void I2C_InitMaster(void)
+      |             ^~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Bai5.1.elf" @"objects.list"  -lLibraries -mcpu=cortex-m4 -T"E:\Funix_303_iot\Lab5\Bai5.1\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bai5.1.map" -Wl,--gc-sections -static -L"E:\Funix_302_iot\Thuvien\SDK_1.0.3_NUCLEO-F401RE\lib_stm" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bai5.1.elf
+ 
+arm-none-eabi-size   Bai5.1.elf 
+arm-none-eabi-objdump -h -S  Bai5.1.elf  > "Bai5.1.list"
+arm-none-eabi-objcopy  -O binary  Bai5.1.elf  "Bai5.1.bin"
+   text	   data	    bss	    dec	    hex	filename
+    656	      8	   1568	   2232	    8b8	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bai5.1.list
+Finished building: Bai5.1.bin
+ 
+ 
+11:34:55 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F401RE -DSTM32 -DSTM32F401RETx -DSTM32F4 -c -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/CMSIS/Include" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/STM32F401RE_StdPeriph_Driver/inc" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/button" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/buzzer" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/led" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/rtos" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/sensor" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/serial" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/ucglib" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Utilities" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c:115:13: warning: 'I2C_InitSlave' defined but not used [-Wunused-function]
+  115 | static void I2C_InitSlave(void)
+      |             ^~~~~~~~~~~~~
+../Src/main.c:72:13: warning: 'I2C_InitMaster' defined but not used [-Wunused-function]
+   72 | static void I2C_InitMaster(void)
+      |             ^~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Bai5.1.elf" @"objects.list"  -lLibraries -mcpu=cortex-m4 -T"E:\Funix_303_iot\Lab5\Bai5.1\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bai5.1.map" -Wl,--gc-sections -static -L"E:\Funix_302_iot\Thuvien\SDK_1.0.3_NUCLEO-F401RE\lib_stm" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bai5.1.elf
+ 
+arm-none-eabi-size   Bai5.1.elf 
+arm-none-eabi-objdump -h -S  Bai5.1.elf  > "Bai5.1.list"
+arm-none-eabi-objcopy  -O binary  Bai5.1.elf  "Bai5.1.bin"
+   text	   data	    bss	    dec	    hex	filename
+    656	      8	   1568	   2232	    8b8	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bai5.1.list
+Finished building: Bai5.1.bin
+ 
+ 
+14:06:52 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F401RE -DSTM32 -DSTM32F401RETx -DSTM32F4 -c -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/CMSIS/Include" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/STM32F401RE_StdPeriph_Driver/inc" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/button" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/buzzer" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/led" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/rtos" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/sensor" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/serial" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/ucglib" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Utilities" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c:121:13: warning: 'I2C_InitSlave' defined but not used [-Wunused-function]
+  121 | static void I2C_InitSlave(void)
+      |             ^~~~~~~~~~~~~
+../Src/main.c:73:13: warning: 'I2C_InitMaster' defined but not used [-Wunused-function]
+   73 | static void I2C_InitMaster(void)
+      |             ^~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Bai5.1.elf" @"objects.list"  -lLibraries -mcpu=cortex-m4 -T"E:\Funix_303_iot\Lab5\Bai5.1\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bai5.1.map" -Wl,--gc-sections -static -L"E:\Funix_302_iot\Thuvien\SDK_1.0.3_NUCLEO-F401RE\lib_stm" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bai5.1.elf
+ 
+arm-none-eabi-size   Bai5.1.elf 
+arm-none-eabi-objdump -h -S  Bai5.1.elf  > "Bai5.1.list"
+arm-none-eabi-objcopy  -O binary  Bai5.1.elf  "Bai5.1.bin"
+   text	   data	    bss	    dec	    hex	filename
+   1024	      8	   1568	   2600	    a28	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bai5.1.bin
+ 
+Finished building: Bai5.1.list
+ 
+14:39:19 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F401RE -DSTM32 -DSTM32F401RETx -DSTM32F4 -c -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/CMSIS/Include" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/STM32F401RE_StdPeriph_Driver/inc" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/button" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/buzzer" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/led" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/rtos" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/sensor" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/serial" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/ucglib" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Utilities" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c:282:13: warning: 'Led_Init' defined but not used [-Wunused-function]
+  282 | static void Led_Init(void)
+      |             ^~~~~~~~
+../Src/main.c:276:13: warning: 'I2C_Stop' defined but not used [-Wunused-function]
+  276 | static void I2C_Stop(void)
+      |             ^~~~~~~~
+../Src/main.c:258:13: warning: 'I2C_TransmitData' defined but not used [-Wunused-function]
+  258 | static void I2C_TransmitData(uint8_t data)
+      |             ^~~~~~~~~~~~~~~~
+../Src/main.c:245:13: warning: 'I2C_SendAddress' defined but not used [-Wunused-function]
+  245 | static void I2C_SendAddress(uint8_t address)
+      |             ^~~~~~~~~~~~~~~
+../Src/main.c:225:13: warning: 'I2C_Start' defined but not used [-Wunused-function]
+  225 | static void I2C_Start(void)
+      |             ^~~~~~~~~
+../Src/main.c:123:13: warning: 'I2C_InitSlave' defined but not used [-Wunused-function]
+  123 | static void I2C_InitSlave(void)
+      |             ^~~~~~~~~~~~~
+../Src/main.c:75:13: warning: 'I2C_InitMaster' defined but not used [-Wunused-function]
+   75 | static void I2C_InitMaster(void)
+      |             ^~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Bai5.1.elf" @"objects.list"  -lLibraries -mcpu=cortex-m4 -T"E:\Funix_303_iot\Lab5\Bai5.1\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bai5.1.map" -Wl,--gc-sections -static -L"E:\Funix_302_iot\Thuvien\SDK_1.0.3_NUCLEO-F401RE\lib_stm" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bai5.1.elf
+ 
+arm-none-eabi-size   Bai5.1.elf 
+arm-none-eabi-objdump -h -S  Bai5.1.elf  > "Bai5.1.list"
+arm-none-eabi-objcopy  -O binary  Bai5.1.elf  "Bai5.1.bin"
+   text	   data	    bss	    dec	    hex	filename
+   1024	      8	   1568	   2600	    a28	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bai5.1.bin
+Finished building: Bai5.1.list
+ 
+ 
+14:42:38 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F401RE -DSTM32 -DSTM32F401RETx -DSTM32F4 -c -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/CMSIS/Include" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/STM32F401RE_StdPeriph_Driver/inc" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/button" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/buzzer" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/led" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/rtos" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/sensor" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/serial" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/ucglib" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Utilities" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c:311:13: warning: 'Button_Init' defined but not used [-Wunused-function]
+  311 | static void Button_Init(void)
+      |             ^~~~~~~~~~~
+../Src/main.c:288:13: warning: 'Led_Init' defined but not used [-Wunused-function]
+  288 | static void Led_Init(void)
+      |             ^~~~~~~~
+../Src/main.c:276:13: warning: 'I2C_Stop' defined but not used [-Wunused-function]
+  276 | static void I2C_Stop(void)
+      |             ^~~~~~~~
+../Src/main.c:258:13: warning: 'I2C_TransmitData' defined but not used [-Wunused-function]
+  258 | static void I2C_TransmitData(uint8_t data)
+      |             ^~~~~~~~~~~~~~~~
+../Src/main.c:245:13: warning: 'I2C_SendAddress' defined but not used [-Wunused-function]
+  245 | static void I2C_SendAddress(uint8_t address)
+      |             ^~~~~~~~~~~~~~~
+../Src/main.c:225:13: warning: 'I2C_Start' defined but not used [-Wunused-function]
+  225 | static void I2C_Start(void)
+      |             ^~~~~~~~~
+../Src/main.c:123:13: warning: 'I2C_InitSlave' defined but not used [-Wunused-function]
+  123 | static void I2C_InitSlave(void)
+      |             ^~~~~~~~~~~~~
+../Src/main.c:75:13: warning: 'I2C_InitMaster' defined but not used [-Wunused-function]
+   75 | static void I2C_InitMaster(void)
+      |             ^~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Bai5.1.elf" @"objects.list"  -lLibraries -mcpu=cortex-m4 -T"E:\Funix_303_iot\Lab5\Bai5.1\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bai5.1.map" -Wl,--gc-sections -static -L"E:\Funix_302_iot\Thuvien\SDK_1.0.3_NUCLEO-F401RE\lib_stm" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bai5.1.elf
+ 
+arm-none-eabi-size   Bai5.1.elf 
+arm-none-eabi-objdump -h -S  Bai5.1.elf  > "Bai5.1.list"
+arm-none-eabi-objcopy  -O binary  Bai5.1.elf  "Bai5.1.bin"
+   text	   data	    bss	    dec	    hex	filename
+   1024	      8	   1568	   2600	    a28	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bai5.1.bin
+Finished building: Bai5.1.list
+ 
+ 
+14:51:21 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F401RE -DSTM32 -DSTM32F401RETx -DSTM32F4 -c -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/CMSIS/Include" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/STM32F401RE_StdPeriph_Driver/inc" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/button" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/buzzer" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/led" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/rtos" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/sensor" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/serial" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/ucglib" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Utilities" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c: In function 'Delay_ms':
+../Src/main.c:108:23: warning: implicit declaration of function 'GetMilSecTick' [-Wimplicit-function-declaration]
+  108 |  uint32_t startTime = GetMilSecTick(); //Lưu lại th�?i điểm hiện tại.
+      |                       ^~~~~~~~~~~~~
+../Src/main.c:109:9: warning: implicit declaration of function 'CalculatorTime' [-Wimplicit-function-declaration]
+  109 |  while (CalculatorTime(startTime, GetMilSecTick()) <= ms)
+      |         ^~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Bai5.1.elf" @"objects.list"  -lLibraries -mcpu=cortex-m4 -T"E:\Funix_303_iot\Lab5\Bai5.1\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bai5.1.map" -Wl,--gc-sections -static -L"E:\Funix_302_iot\Thuvien\SDK_1.0.3_NUCLEO-F401RE\lib_stm" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+c:\st\stm32cubeide_1.7.0\stm32cubeide\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346\tools\arm-none-eabi\bin\ld.exe: ./Src/main.o: in function `Delay_ms':
+E:/Funix_303_iot/Lab5/Bai5.1/Debug/../Src/main.c:109: undefined reference to `CalculatorTime'
+collect2.exe: error: ld returned 1 exit status
+make: *** [makefile:64: Bai5.1.elf] Error 1
+"make -j4 all" terminated with exit code 2. Build might be incomplete.
+14:52:37 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F401RE -DSTM32 -DSTM32F401RETx -DSTM32F4 -c -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/CMSIS/Include" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/STM32F401RE_StdPeriph_Driver/inc" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/button" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/buzzer" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/led" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/rtos" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/sensor" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/serial" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/ucglib" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Utilities" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Bai5.1.elf" @"objects.list"  -lLibraries -mcpu=cortex-m4 -T"E:\Funix_303_iot\Lab5\Bai5.1\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bai5.1.map" -Wl,--gc-sections -static -L"E:\Funix_302_iot\Thuvien\SDK_1.0.3_NUCLEO-F401RE\lib_stm" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bai5.1.elf
+ 
+arm-none-eabi-size   Bai5.1.elf 
+arm-none-eabi-objdump -h -S  Bai5.1.elf  > "Bai5.1.list"
+arm-none-eabi-objcopy  -O binary  Bai5.1.elf  "Bai5.1.bin"
+   text	   data	    bss	    dec	    hex	filename
+   4024	     24	   1568	   5616	   15f0	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bai5.1.bin
+ 
+Finished building: Bai5.1.list
+ 
+14:57:15 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-size   Bai5.1.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4024	     24	   1568	   5616	   15f0	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+14:58:11 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-size   Bai5.1.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4024	     24	   1568	   5616	   15f0	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+14:59:52 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-size   Bai5.1.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4024	     24	   1568	   5616	   15f0	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+15:00:35 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-size   Bai5.1.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4024	     24	   1568	   5616	   15f0	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+15:04:55 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F401RE -DSTM32 -DSTM32F401RETx -DSTM32F4 -c -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/CMSIS/Include" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/STM32F401RE_StdPeriph_Driver/inc" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/button" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/buzzer" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/led" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/rtos" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/sensor" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/serial" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/ucglib" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Utilities" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Bai5.1.elf" @"objects.list"  -lLibraries -mcpu=cortex-m4 -T"E:\Funix_303_iot\Lab5\Bai5.1\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bai5.1.map" -Wl,--gc-sections -static -L"E:\Funix_302_iot\Thuvien\SDK_1.0.3_NUCLEO-F401RE\lib_stm" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bai5.1.elf
+ 
+arm-none-eabi-size   Bai5.1.elf 
+arm-none-eabi-objdump -h -S  Bai5.1.elf  > "Bai5.1.list"
+arm-none-eabi-objcopy  -O binary  Bai5.1.elf  "Bai5.1.bin"
+   text	   data	    bss	    dec	    hex	filename
+   4024	     24	   1568	   5616	   15f0	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bai5.1.bin
+ 
+Finished building: Bai5.1.list
+ 
+15:05:02 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-size   Bai5.1.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4024	     24	   1568	   5616	   15f0	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+15:07:03 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-size   Bai5.1.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4024	     24	   1568	   5616	   15f0	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+16:19:07 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F401RE -DSTM32 -DSTM32F401RETx -DSTM32F4 -c -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/CMSIS/Include" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/STM32F401RE_StdPeriph_Driver/inc" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/button" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/buzzer" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/led" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/rtos" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/sensor" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/serial" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/ucglib" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Utilities" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Bai5.1.elf" @"objects.list"  -lLibraries -mcpu=cortex-m4 -T"E:\Funix_303_iot\Lab5\Bai5.1\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bai5.1.map" -Wl,--gc-sections -static -L"E:\Funix_302_iot\Thuvien\SDK_1.0.3_NUCLEO-F401RE\lib_stm" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bai5.1.elf
+ 
+arm-none-eabi-size   Bai5.1.elf 
+arm-none-eabi-objdump -h -S  Bai5.1.elf  > "Bai5.1.list"
+arm-none-eabi-objcopy  -O binary  Bai5.1.elf  "Bai5.1.bin"
+   text	   data	    bss	    dec	    hex	filename
+   4020	     24	   1568	   5612	   15ec	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bai5.1.bin
+ 
+Finished building: Bai5.1.list
+ 
+16:19:37 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F401RE -DSTM32 -DSTM32F401RETx -DSTM32F4 -c -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/CMSIS/Include" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/STM32F401RE_StdPeriph_Driver/inc" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/button" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/buzzer" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/led" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/rtos" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/sensor" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/serial" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/ucglib" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Utilities" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Bai5.1.elf" @"objects.list"  -lLibraries -mcpu=cortex-m4 -T"E:\Funix_303_iot\Lab5\Bai5.1\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bai5.1.map" -Wl,--gc-sections -static -L"E:\Funix_302_iot\Thuvien\SDK_1.0.3_NUCLEO-F401RE\lib_stm" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bai5.1.elf
+ 
+arm-none-eabi-size   Bai5.1.elf 
+arm-none-eabi-objdump -h -S  Bai5.1.elf  > "Bai5.1.list"
+arm-none-eabi-objcopy  -O binary  Bai5.1.elf  "Bai5.1.bin"
+   text	   data	    bss	    dec	    hex	filename
+   4020	     24	   1568	   5612	   15ec	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bai5.1.bin
+ 
+Finished building: Bai5.1.list
+ 
+16:19:41 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-size   Bai5.1.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4020	     24	   1568	   5612	   15ec	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+16:21:16 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F401RE -DSTM32 -DSTM32F401RETx -DSTM32F4 -c -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/CMSIS/Include" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/STM32F401RE_StdPeriph_Driver/inc" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/button" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/buzzer" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/led" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/rtos" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/sensor" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/serial" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/ucglib" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Utilities" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Bai5.1.elf" @"objects.list"  -lLibraries -mcpu=cortex-m4 -T"E:\Funix_303_iot\Lab5\Bai5.1\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bai5.1.map" -Wl,--gc-sections -static -L"E:\Funix_302_iot\Thuvien\SDK_1.0.3_NUCLEO-F401RE\lib_stm" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bai5.1.elf
+ 
+arm-none-eabi-size   Bai5.1.elf 
+arm-none-eabi-objdump -h -S  Bai5.1.elf  > "Bai5.1.list"
+arm-none-eabi-objcopy  -O binary  Bai5.1.elf  "Bai5.1.bin"
+   text	   data	    bss	    dec	    hex	filename
+   4020	     24	   1568	   5612	   15ec	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bai5.1.bin
+ 
+Finished building: Bai5.1.list
+ 
+16:21:20 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F401RE -DSTM32 -DSTM32F401RETx -DSTM32F4 -c -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/CMSIS/Include" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/STM32F401RE_StdPeriph_Driver/inc" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/button" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/buzzer" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/led" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/rtos" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/sensor" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/serial" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/ucglib" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Utilities" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Bai5.1.elf" @"objects.list"  -lLibraries -mcpu=cortex-m4 -T"E:\Funix_303_iot\Lab5\Bai5.1\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bai5.1.map" -Wl,--gc-sections -static -L"E:\Funix_302_iot\Thuvien\SDK_1.0.3_NUCLEO-F401RE\lib_stm" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bai5.1.elf
+ 
+arm-none-eabi-size   Bai5.1.elf 
+arm-none-eabi-objdump -h -S  Bai5.1.elf  > "Bai5.1.list"
+arm-none-eabi-objcopy  -O binary  Bai5.1.elf  "Bai5.1.bin"
+   text	   data	    bss	    dec	    hex	filename
+   4064	     24	   1568	   5656	   1618	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bai5.1.bin
+ 
+Finished building: Bai5.1.list
+ 
+16:21:26 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-size   Bai5.1.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4064	     24	   1568	   5656	   1618	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+16:21:56 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F401RE -DSTM32 -DSTM32F401RETx -DSTM32F4 -c -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/CMSIS/Include" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/STM32F401RE_StdPeriph_Driver/inc" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/button" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/buzzer" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/led" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/rtos" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/sensor" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/serial" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/ucglib" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Utilities" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Bai5.1.elf" @"objects.list"  -lLibraries -mcpu=cortex-m4 -T"E:\Funix_303_iot\Lab5\Bai5.1\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bai5.1.map" -Wl,--gc-sections -static -L"E:\Funix_302_iot\Thuvien\SDK_1.0.3_NUCLEO-F401RE\lib_stm" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bai5.1.elf
+ 
+arm-none-eabi-size   Bai5.1.elf 
+arm-none-eabi-objdump -h -S  Bai5.1.elf  > "Bai5.1.list"
+arm-none-eabi-objcopy  -O binary  Bai5.1.elf  "Bai5.1.bin"
+   text	   data	    bss	    dec	    hex	filename
+   4064	     24	   1568	   5656	   1618	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bai5.1.bin
+ 
+Finished building: Bai5.1.list
+ 
+16:22:00 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-size   Bai5.1.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4064	     24	   1568	   5656	   1618	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+16:22:35 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F401RE -DSTM32 -DSTM32F401RETx -DSTM32F4 -c -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/CMSIS/Include" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/STM32F401RE_StdPeriph_Driver/inc" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/button" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/buzzer" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/led" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/rtos" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/sensor" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/serial" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/ucglib" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Utilities" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c: In function 'main':
+../Src/main.c:76:4: warning: implicit declaration of function 'or' [-Wimplicit-function-declaration]
+   76 |    or(uint32_t i = 0;i< LED_NUM_OF_BLINK ;i++ )
+      |    ^~
+../Src/main.c:76:7: error: expected expression before 'uint32_t'
+   76 |    or(uint32_t i = 0;i< LED_NUM_OF_BLINK ;i++ )
+      |       ^~~~~~~~
+../Src/main.c:76:48: error: expected ';' before '{' token
+   76 |    or(uint32_t i = 0;i< LED_NUM_OF_BLINK ;i++ )
+      |                                                ^
+      |                                                ;
+   77 |          {
+      |          ~                                      
+../Src/main.c:91:4: error: 'f' undeclared (first use in this function)
+   91 |    f
+      |    ^
+../Src/main.c:91:4: note: each undeclared identifier is reported only once for each function it appears in
+../Src/main.c:91:5: error: expected ';' before '}' token
+   91 |    f
+      |     ^
+      |     ;
+   92 | 
+   93 |   }
+      |   ~  
+At top level:
+../Src/main.c:291:13: warning: 'I2C_Start' defined but not used [-Wunused-function]
+  291 | static void I2C_Start(void)
+      |             ^~~~~~~~~
+make: *** [Src/subdir.mk:25: Src/main.o] Error 1
+"make -j4 all" terminated with exit code 2. Build might be incomplete.
+16:22:51 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F401RE -DSTM32 -DSTM32F401RETx -DSTM32F4 -c -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/CMSIS/Include" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/STM32F401RE_StdPeriph_Driver/inc" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/button" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/buzzer" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/led" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/rtos" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/sensor" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/serial" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/ucglib" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Utilities" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Bai5.1.elf" @"objects.list"  -lLibraries -mcpu=cortex-m4 -T"E:\Funix_303_iot\Lab5\Bai5.1\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bai5.1.map" -Wl,--gc-sections -static -L"E:\Funix_302_iot\Thuvien\SDK_1.0.3_NUCLEO-F401RE\lib_stm" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bai5.1.elf
+ 
+arm-none-eabi-size   Bai5.1.elf 
+arm-none-eabi-objdump -h -S  Bai5.1.elf  > "Bai5.1.list"
+arm-none-eabi-objcopy  -O binary  Bai5.1.elf  "Bai5.1.bin"
+   text	   data	    bss	    dec	    hex	filename
+   4064	     24	   1568	   5656	   1618	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bai5.1.bin
+ 
+Finished building: Bai5.1.list
+ 
+16:23:10 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F401RE -DSTM32 -DSTM32F401RETx -DSTM32F4 -c -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/CMSIS/Include" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/STM32F401RE_StdPeriph_Driver/inc" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/button" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/buzzer" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/led" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/rtos" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/sensor" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/serial" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/ucglib" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Utilities" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Bai5.1.elf" @"objects.list"  -lLibraries -mcpu=cortex-m4 -T"E:\Funix_303_iot\Lab5\Bai5.1\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bai5.1.map" -Wl,--gc-sections -static -L"E:\Funix_302_iot\Thuvien\SDK_1.0.3_NUCLEO-F401RE\lib_stm" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bai5.1.elf
+ 
+arm-none-eabi-size   Bai5.1.elf 
+arm-none-eabi-objdump -h -S  Bai5.1.elf  > "Bai5.1.list"
+arm-none-eabi-objcopy  -O binary  Bai5.1.elf  "Bai5.1.bin"
+   text	   data	    bss	    dec	    hex	filename
+   4064	     24	   1568	   5656	   1618	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bai5.1.bin
+ 
+Finished building: Bai5.1.list
+ 
+16:25:34 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F401RE -DSTM32 -DSTM32F401RETx -DSTM32F4 -c -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/CMSIS/Include" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/STM32F401RE_StdPeriph_Driver/inc" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/button" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/buzzer" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/led" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/rtos" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/sensor" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/serial" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/ucglib" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Utilities" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Bai5.1.elf" @"objects.list"  -lLibraries -mcpu=cortex-m4 -T"E:\Funix_303_iot\Lab5\Bai5.1\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bai5.1.map" -Wl,--gc-sections -static -L"E:\Funix_302_iot\Thuvien\SDK_1.0.3_NUCLEO-F401RE\lib_stm" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bai5.1.elf
+ 
+arm-none-eabi-size   Bai5.1.elf 
+arm-none-eabi-objdump -h -S  Bai5.1.elf  > "Bai5.1.list"
+arm-none-eabi-objcopy  -O binary  Bai5.1.elf  "Bai5.1.bin"
+   text	   data	    bss	    dec	    hex	filename
+   4020	     24	   1568	   5612	   15ec	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bai5.1.bin
+ 
+Finished building: Bai5.1.list
+ 
+16:30:54 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-size   Bai5.1.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4020	     24	   1568	   5612	   15ec	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+16:33:30 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F401RE -DSTM32 -DSTM32F401RETx -DSTM32F4 -c -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/CMSIS/Include" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/STM32F401RE_StdPeriph_Driver/inc" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/button" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/buzzer" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/led" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/rtos" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/sensor" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/serial" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/ucglib" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Utilities" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Bai5.1.elf" @"objects.list"  -lLibraries -mcpu=cortex-m4 -T"E:\Funix_303_iot\Lab5\Bai5.1\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bai5.1.map" -Wl,--gc-sections -static -L"E:\Funix_302_iot\Thuvien\SDK_1.0.3_NUCLEO-F401RE\lib_stm" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bai5.1.elf
+ 
+arm-none-eabi-size   Bai5.1.elf 
+arm-none-eabi-objdump -h -S  Bai5.1.elf  > "Bai5.1.list"
+arm-none-eabi-objcopy  -O binary  Bai5.1.elf  "Bai5.1.bin"
+   text	   data	    bss	    dec	    hex	filename
+   4020	     24	   1568	   5612	   15ec	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bai5.1.bin
+ 
+Finished building: Bai5.1.list
+ 
+16:33:39 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-size   Bai5.1.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4020	     24	   1568	   5612	   15ec	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+16:38:33 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F401RE -DSTM32 -DSTM32F401RETx -DSTM32F4 -c -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/CMSIS/Include" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/STM32F401RE_StdPeriph_Driver/inc" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/button" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/buzzer" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/led" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/rtos" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/sensor" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/serial" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/ucglib" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Utilities" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Bai5.1.elf" @"objects.list"  -lLibraries -mcpu=cortex-m4 -T"E:\Funix_303_iot\Lab5\Bai5.1\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bai5.1.map" -Wl,--gc-sections -static -L"E:\Funix_302_iot\Thuvien\SDK_1.0.3_NUCLEO-F401RE\lib_stm" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bai5.1.elf
+ 
+arm-none-eabi-size   Bai5.1.elf 
+arm-none-eabi-objdump -h -S  Bai5.1.elf  > "Bai5.1.list"
+arm-none-eabi-objcopy  -O binary  Bai5.1.elf  "Bai5.1.bin"
+   text	   data	    bss	    dec	    hex	filename
+   4540	     44	   1572	   6156	   180c	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bai5.1.bin
+ 
+Finished building: Bai5.1.list
+ 
+16:38:37 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-size   Bai5.1.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4540	     44	   1572	   6156	   180c	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+16:38:55 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-size   Bai5.1.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4540	     44	   1572	   6156	   180c	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+16:39:06 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-size   Bai5.1.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4540	     44	   1572	   6156	   180c	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+16:39:09 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-size   Bai5.1.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4540	     44	   1572	   6156	   180c	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+16:50:55 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F401RE -DSTM32 -DSTM32F401RETx -DSTM32F4 -c -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/CMSIS/Include" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/STM32F401RE_StdPeriph_Driver/inc" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/button" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/buzzer" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/led" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/rtos" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/sensor" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/serial" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/ucglib" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Utilities" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Bai5.1.elf" @"objects.list"  -lLibraries -mcpu=cortex-m4 -T"E:\Funix_303_iot\Lab5\Bai5.1\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bai5.1.map" -Wl,--gc-sections -static -L"E:\Funix_302_iot\Thuvien\SDK_1.0.3_NUCLEO-F401RE\lib_stm" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bai5.1.elf
+ 
+arm-none-eabi-size   Bai5.1.elf 
+arm-none-eabi-objdump -h -S  Bai5.1.elf  > "Bai5.1.list"
+arm-none-eabi-objcopy  -O binary  Bai5.1.elf  "Bai5.1.bin"
+   text	   data	    bss	    dec	    hex	filename
+   4540	     44	   1572	   6156	   180c	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bai5.1.bin
+ 
+Finished building: Bai5.1.list
+ 
+16:52:41 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-size   Bai5.1.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4540	     44	   1572	   6156	   180c	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+14:19:54 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F401RE -DSTM32 -DSTM32F401RETx -DSTM32F4 -c -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/CMSIS/Include" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/STM32F401RE_StdPeriph_Driver/inc" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/button" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/buzzer" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/led" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/rtos" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/sensor" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/serial" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/ucglib" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Utilities" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Bai5.1.elf" @"objects.list"  -lLibraries -mcpu=cortex-m4 -T"E:\Funix_303_iot\Lab5\Bai5.1\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bai5.1.map" -Wl,--gc-sections -static -L"E:\Funix_302_iot\Thuvien\SDK_1.0.3_NUCLEO-F401RE\lib_stm" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bai5.1.elf
+ 
+arm-none-eabi-size   Bai5.1.elf 
+arm-none-eabi-objdump -h -S  Bai5.1.elf  > "Bai5.1.list"
+arm-none-eabi-objcopy  -O binary  Bai5.1.elf  "Bai5.1.bin"
+   text	   data	    bss	    dec	    hex	filename
+   4568	     44	   1572	   6184	   1828	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bai5.1.bin
+ 
+Finished building: Bai5.1.list
+ 
+14:20:14 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-size   Bai5.1.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4568	     44	   1572	   6184	   1828	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+14:21:34 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-size   Bai5.1.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4568	     44	   1572	   6184	   1828	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+14:21:39 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-size   Bai5.1.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4568	     44	   1572	   6184	   1828	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+14:23:30 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F401RE -DSTM32 -DSTM32F401RETx -DSTM32F4 -c -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/CMSIS/Include" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/STM32F401RE_StdPeriph_Driver/inc" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/button" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/buzzer" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/led" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/rtos" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/sensor" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/serial" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/ucglib" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Utilities" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Bai5.1.elf" @"objects.list"  -lLibraries -mcpu=cortex-m4 -T"E:\Funix_303_iot\Lab5\Bai5.1\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bai5.1.map" -Wl,--gc-sections -static -L"E:\Funix_302_iot\Thuvien\SDK_1.0.3_NUCLEO-F401RE\lib_stm" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bai5.1.elf
+ 
+arm-none-eabi-size   Bai5.1.elf 
+arm-none-eabi-objdump -h -S  Bai5.1.elf  > "Bai5.1.list"
+arm-none-eabi-objcopy  -O binary  Bai5.1.elf  "Bai5.1.bin"
+   text	   data	    bss	    dec	    hex	filename
+   4568	     44	   1572	   6184	   1828	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bai5.1.bin
+ 
+Finished building: Bai5.1.list
+ 

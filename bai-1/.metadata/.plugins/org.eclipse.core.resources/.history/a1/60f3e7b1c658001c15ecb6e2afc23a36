@@ -1,0 +1,381 @@
+/*******************************************************************************
+ *
+ * Description: Lab5-Bai1
+ *
+ *
+ * Last Changed By:  $Author: TrungNT $
+ * Revision:         $Revision: 1.0 $
+ * Last Changed:     $Date: 12/9/2021 $
+ *
+ ******************************************************************************/
+
+#include <stdint.h>
+#include <stm32f401re_gpio.h>
+#include <stm32f401re_rcc.h>
+#include <stm32f401re_i2c.h>
+#include <misc.h>
+
+/*Private Macro ****************************************************************/
+#define SERIAL_ADR														0x02
+#define DATA_RCV_VALID													0x10
+#define DATA_RCV_IDLE													0x00
+
+#define I2C_SPEED														400000 // 400 KBit/s
+
+#define LED_NUM_OF_BLINK												5
+
+#define LED_IND_GPIO_RCC												RCC_AHB1Periph_GPIOA
+#define LED_IND_PIN														GPIO_Pin_5
+#define LED_IND_PORT													GPIOA
+
+#define BUTTON_CFG_GPIO_RCC												RCC_AHB1Periph_GPIOC
+#define BUTTON_CFG_PIN													GPIO_Pin_13
+#define BUTTON_CFG_PORT													GPIOC
+
+//----------------------------------SLAVE---------------------------------------------------
+#define I2C_SLAVE_RCC													RCC_APB1Periph_I2C1
+#define I2C_SLAVE_INSTANCE												I2C1
+
+#define I2C_SLAVE_GPIO_RCC												RCC_AHB1Periph_GPIOB
+#define I2C_SLAVE_PORT													GPIOB
+#define SDA_SLAVE_PIN													GPIO_Pin_9
+#define SCL_SLAVE_PIN													GPIO_Pin_8
+
+//----------------------------------MASTER--------------------------------------------------
+#define I2C_MASTER_RCC													RCC_APB1Periph_I2C3
+#define I2C_MASTER_INSTANCE												I2C3
+
+#define I2C_MASTER_GPIO_RCC												RCC_AHB1Periph_GPIOA
+#define I2C_MASTER_PORT													GPIOA
+#define SDA_MASTER_PIN													GPIO_Pin_9
+#define SCL_MASTER_PIN													GPIO_Pin_8
+
+
+uint8_t Data_Receive = 0;
+
+
+/*Privated Function***************************************************************************/
+static void AppCommon(void);
+static void I2C_InitMaster(void);
+static void I2C_InitSlave(void);
+static void I2C_Start(void);
+static void I2C_SendAddress(uint8_t address);
+static void I2C_TransmitData(uint8_t data);
+static void I2C_Stop(void);
+static void Led_Init(void);
+static void Button_Init(void);
+void Delay_ms(void);
+int main(void)
+{
+	AppCommon();
+
+	while(1)
+	{
+		if(GPIO_ReadInputDataBit(BUTTON_CFG_PORT, BUTTON_CFG_PIN) == Bit_RESET)
+		{
+			I2C_Start();
+
+			I2C_SendAddress(SERIAL_ADR);
+
+			I2C_TransmitData(DATA_RCV_VALID);
+
+			I2C_Stop();
+
+		}
+
+		if(Data_Receive == DATA_RCV_VALID)
+		{
+			for(uint32_t i = 0;i< LED_NUM_OF_BLINK ;i++ )
+			{
+				GPIO_SetBits(LED_IND_PORT, LED_IND_PIN);
+				Delay_ms();
+				GPIO_ResetBits(LED_IND_PORT, LED_IND_PIN);
+				Delay_ms();
+			}
+			Data_Receive = DATA_RCV_IDLE;
+		}
+	}
+}
+
+/**
+ * @func   delay_ms
+ * @brief  delay milisecon
+ * @param  None
+ * @retval None
+ */
+void Delay_ms(void) {
+
+	for(uint32_t i = 0;i<500000;i++);
+
+}
+/**
+ * @func   AppCommon
+ * @brief  Init AppCommon
+ * @param  None
+ * @retval None
+ */
+static void AppCommon(void)
+{
+	Button_Init();
+	Led_Init();
+	I2C_InitMaster();
+	I2C_InitSlave();
+}
+
+/**
+ * @func   I2C_InitMaster
+ * @brief  Init I2C Master
+ * @param  None
+ * @retval None
+ */
+
+static void I2C_InitMaster(void)
+{
+	// Initialization struct-----------------------------------------------------------------
+	GPIO_InitTypeDef GPIO_InitStruct;
+	I2C_InitTypeDef I2C_InitStruct;
+
+	// Enable CLOCK peripheral GPIOA and GPIOC
+	RCC_APB1PeriphClockCmd(I2C_MASTER_RCC, ENABLE);
+	RCC_AHB1PeriphClockCmd(I2C_MASTER_GPIO_RCC, ENABLE);
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
+
+	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF;
+	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_InitStruct.GPIO_OType = GPIO_OType_OD;
+	GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_UP;
+
+	GPIO_InitStruct.GPIO_Pin = SDA_MASTER_PIN;
+	GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+	GPIO_InitStruct.GPIO_Pin = SCL_MASTER_PIN;
+	GPIO_Init(I2C_MASTER_PORT, &GPIO_InitStruct);
+
+	// Connect PA8 to I2C3_SCL
+	GPIO_PinAFConfig(I2C_MASTER_PORT, GPIO_PinSource8, GPIO_AF_I2C3);
+
+	// Connect PC9 to I2C3_SDA
+	GPIO_PinAFConfig(GPIOC, GPIO_PinSource9, GPIO_AF_I2C3);
+
+//	Configuration I2C3
+
+	I2C_InitStruct.I2C_ClockSpeed = I2C_SPEED;
+	I2C_InitStruct.I2C_Mode = I2C_Mode_I2C;
+	I2C_InitStruct.I2C_DutyCycle = I2C_DutyCycle_2;
+	I2C_InitStruct.I2C_OwnAddress1 = 0x00;
+	I2C_InitStruct.I2C_Ack = I2C_Ack_Enable;
+	I2C_InitStruct.I2C_AcknowledgedAddress = I2C_AcknowledgedAddress_7bit;
+
+	I2C_Init(I2C_MASTER_INSTANCE, &I2C_InitStruct);
+	I2C_Cmd(I2C_MASTER_INSTANCE, ENABLE);
+
+}
+
+/**
+ * @func   I2C_InitSlave
+ * @brief  Init I2C Slave
+ * @param  None
+ * @retval None
+ */
+static void I2C_InitSlave(void)
+{
+	GPIO_InitTypeDef GPIO_InitStruct;
+	I2C_InitTypeDef I2C_InitStruct;
+	NVIC_InitTypeDef NVIC_InitStruct;
+
+	RCC_APB1PeriphClockCmd(I2C_SLAVE_RCC, ENABLE);
+	RCC_AHB1PeriphClockCmd(I2C_SLAVE_GPIO_RCC, ENABLE);
+
+	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF;
+	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_InitStruct.GPIO_OType = GPIO_OType_OD;
+	GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_UP;
+
+	GPIO_InitStruct.GPIO_Pin = SDA_SLAVE_PIN | SCL_SLAVE_PIN;
+	GPIO_Init(I2C_SLAVE_PORT, &GPIO_InitStruct);
+
+	// Connect PB8 to I2C1
+	GPIO_PinAFConfig(I2C_SLAVE_PORT, GPIO_PinSource8, GPIO_AF_I2C1);
+
+	// Connect PB9 to I2C1
+	GPIO_PinAFConfig(I2C_SLAVE_PORT, GPIO_PinSource9, GPIO_AF_I2C1);
+
+//	Configuration I2C1-----------------------------------------------------------
+
+	I2C_InitStruct.I2C_ClockSpeed = I2C_SPEED;
+
+	I2C_InitStruct.I2C_Mode = I2C_Mode_I2C;
+
+	I2C_InitStruct.I2C_DutyCycle = I2C_DutyCycle_2;
+
+	I2C_InitStruct.I2C_OwnAddress1 = SERIAL_ADR;
+
+	I2C_InitStruct.I2C_Ack = I2C_Ack_Enable;
+
+	I2C_InitStruct.I2C_AcknowledgedAddress = I2C_AcknowledgedAddress_7bit;
+
+	I2C_Init(I2C_SLAVE_INSTANCE, &I2C_InitStruct);
+
+	I2C_Cmd(I2C_SLAVE_INSTANCE, ENABLE);
+
+//  Configuration NVIC
+
+	//Cho phép ngắt khi nhận các bit địa chỉ và bit Stop
+	I2C_ITConfig(I2C_SLAVE_INSTANCE, I2C_IT_EVT, ENABLE);
+
+	//Cho phép ngắt khi có dữ liệu được truyền đến
+	I2C_ITConfig(I2C_SLAVE_INSTANCE, I2C_IT_BUF, ENABLE);
+
+	NVIC_InitStruct.NVIC_IRQChannel = I2C1_EV_IRQn;
+	NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority = 0;
+	NVIC_InitStruct.NVIC_IRQChannelSubPriority = 0;
+	NVIC_InitStruct.NVIC_IRQChannelCmd = ENABLE;
+
+	NVIC_Init(&NVIC_InitStruct);
+
+
+}
+/**
+ * @func   I2C1_EV_IRQHandler
+ * @brief  Interrupt
+ * @param  None
+ * @retval None
+ */
+void I2C1_EV_IRQHandler(void)
+{
+	//Kiem tra khi co su kien ngat
+	switch (I2C_GetLastEvent(I2C_SLAVE_INSTANCE))
+	{
+		case I2C_EVENT_SLAVE_RECEIVER_ADDRESS_MATCHED:
+		{
+			//Kiem tra dia chi chuyen den dung hay khong
+			I2C_ClearFlag(I2C_SLAVE_INSTANCE, I2C_FLAG_ADDR);
+			break;
+		}
+		case I2C_EVENT_SLAVE_BYTE_RECEIVED:
+		{
+			//Kiem tra co du lieu truyen den
+			Data_Receive = I2C_ReceiveData(I2C_SLAVE_INSTANCE);
+
+			I2C_ClearFlag(I2C_SLAVE_INSTANCE, I2C_FLAG_RXNE);
+			break;
+		}
+		case I2C_EVENT_SLAVE_STOP_DETECTED:
+		{
+			//Kiem tra xem co tin hieu stop truyen den
+			I2C_AcknowledgeConfig(I2C_SLAVE_INSTANCE, ENABLE);
+			break;
+		}
+		default:
+			break;
+
+	}
+	I2C_ClearITPendingBit(I2C_SLAVE_INSTANCE, I2C_IT_RXNE);
+}
+
+/**
+ * @func   I2C_Start
+ * @brief  Transfer bit START
+ * @param  None
+ * @retval None
+ */
+static void I2C_Start(void)
+{
+	// Wait until I2Cx is not busy anymore
+	while(I2C_GetFlagStatus(I2C_SLAVE_INSTANCE, I2C_FLAG_BUSY));
+
+	//Generate start condition
+	I2C_GenerateSTART(I2C_MASTER_INSTANCE, ENABLE);
+
+	//Wait for I2C EV5
+	//It means that the start condition has been correctly released
+	//on the I2C bus (the bus is free, no other devices is communicating)
+	while(!I2C_CheckEvent(I2C_MASTER_INSTANCE, I2C_EVENT_MASTER_MODE_SELECT));
+}
+
+/**
+ * @func   I2C_SendAddress
+ * @brief  Send 7 bit Address
+ * @param  None
+ * @retval None
+ */
+static void I2C_SendAddress(uint8_t address)
+{
+	I2C_Send7bitAddress(I2C_MASTER_INSTANCE, address, I2C_Direction_Transmitter);
+
+	while(!I2C_CheckEvent(I2C_MASTER_INSTANCE, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED));
+}
+
+/**
+ * @func   I2C_TransmitData
+ * @brief  Transmit Data
+ * @param  None
+ * @retval None
+ */
+static void I2C_TransmitData(uint8_t data)
+{
+	// Send data byte
+	I2C_SendData(I2C_MASTER_INSTANCE, data);
+
+	//Wait for I2C EV8_2
+	//It means that the data has been physically shifted out and
+	//output on the bus
+
+	while(!I2C_CheckEvent(I2C_MASTER_INSTANCE, I2C_EVENT_MASTER_BYTE_TRANSMITTED));
+}
+
+/**
+ * @func   I2C_Stop
+ * @brief  Transmit bit stop
+ * @param  None
+ * @retval None
+ */
+static void I2C_Stop(void)
+{
+	//Generate I2C Stop condition
+	I2C_GenerateSTOP(I2C_MASTER_INSTANCE, ENABLE);
+}
+
+/**
+ * @func   Led_Init
+ * @brief  Init LED
+ * @param  None
+ * @retval None
+ */
+static void Led_Init(void)
+{
+	GPIO_InitTypeDef GPIO_InitStruct;
+
+	RCC_AHB1PeriphClockCmd(LED_IND_GPIO_RCC, ENABLE);
+
+	GPIO_InitStruct.GPIO_Pin = LED_IND_PIN;
+	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
+
+	GPIO_Init(LED_IND_PORT, &GPIO_InitStruct);
+
+
+}
+
+
+/**
+ * @func   Button_Init
+ * @brief  Init Button
+ * @param  None
+ * @retval None
+ */
+static void Button_Init(void)
+{
+	GPIO_InitTypeDef GPIO_InitStruct;
+
+	RCC_AHB1PeriphClockCmd(BUTTON_CFG_GPIO_RCC, ENABLE);
+
+	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_IN;
+	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_UP;
+
+	GPIO_InitStruct.GPIO_Pin = BUTTON_CFG_PIN;
+
+	GPIO_Init(BUTTON_CFG_PORT, &GPIO_InitStruct);
+}

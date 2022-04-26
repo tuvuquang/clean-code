@@ -1,0 +1,20 @@
+14:23:30 **** Incremental Build of configuration Debug for project Bai5.1 ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F401RE -DSTM32 -DSTM32F401RETx -DSTM32F4 -c -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/CMSIS/Include" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Drivers/STM32F401RE_StdPeriph_Driver/inc" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/button" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/buzzer" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/led" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/rtos" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/sensor" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/serial" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Middle/ucglib" -I"E:/Funix_302_iot/Thuvien/SDK_1.0.3_NUCLEO-F401RE/shared/Utilities" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Bai5.1.elf" @"objects.list"  -lLibraries -mcpu=cortex-m4 -T"E:\Funix_303_iot\Lab5\Bai5.1\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bai5.1.map" -Wl,--gc-sections -static -L"E:\Funix_302_iot\Thuvien\SDK_1.0.3_NUCLEO-F401RE\lib_stm" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bai5.1.elf
+ 
+arm-none-eabi-size   Bai5.1.elf 
+arm-none-eabi-objdump -h -S  Bai5.1.elf  > "Bai5.1.list"
+arm-none-eabi-objcopy  -O binary  Bai5.1.elf  "Bai5.1.bin"
+   text	   data	    bss	    dec	    hex	filename
+   4568	     44	   1572	   6184	   1828	Bai5.1.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bai5.1.bin
+ 
+Finished building: Bai5.1.list
+ 
+
+14:23:31 Build Finished. 0 errors, 0 warnings. (took 953ms)
+
