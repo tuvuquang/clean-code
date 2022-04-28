@@ -1,0 +1,6 @@
+main.c:36:5:main	8	static
+main.c:47:13:Applicommon	8	static
+main.c:54:13:ADC_DMA	120	static
+main.c:187:10:LightSensor_MeasureUseDMA	4	static
+main.c:198:13:USART2_Init	32	static
+main.c:237:13:MultilSensorScan	16	static
