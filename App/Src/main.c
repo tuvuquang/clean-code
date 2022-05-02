@@ -73,12 +73,12 @@
 // TEM & ACCEL
 typedef struct
 {
-	  i8_t type; 
-	  i32_t dataAccelX;
-	  i32_t dataAccelY;
-	  i32_t dataAccelZ;
-	  i32_t temp;
-	  i8_t count;
+	i8_t type; 
+	i32_t dataAccelX;
+	i32_t dataAccelY;
+	i32_t dataAccelZ;
+	i32_t temp;
+	i8_t count;
 } DataTemAndAccel_t;
 /******************************************************************************/
 /*                              PRIVATE DATA                                  */
@@ -148,28 +148,28 @@ int main(void_t){
     MX_USART2_UART_Init();
     MX_I2C1_Init();
     MX_TIM1_Init();
-	  HAL_TIM_Base_Start(&htim1);
-	  MPU6050_Init();
-	  HAL_UART_Receive_IT(&huart2, &ibRxData, 1);
+	HAL_TIM_Base_Start(&htim1);
+	MPU6050_Init();
+	HAL_UART_Receive_IT(&huart2, &ibRxData, 1);
 
     systemClockConfig();
   	lcdInit();
-	  lcdSendString("Initializing...");
+	lcdSendString("Initializing...");
 	
-  	osMailQueueDef(dataMailQueue, 16, array_ibDataString);
-	  dataMailQueueHandle = osMailCreate(osMailQ(DataMailQueue), NULL); 
+  	osMailQueueDef(dataMailQueue, 16, ibDataStringArr);
+	dataMailQueueHandle = osMailCreate(osMailQ(DataMailQueue), NULL); 
  
     /*===============================Begin: Khoi tao cac task==============================*/
-	  osThreadDef(readAccelTask, startReadAccelTask, osPriorityNormal, 0, 96);
+	osThreadDef(readAccelTask, startReadAccelTask, osPriorityNormal, 0, 96);
     readAccelHandle = osThreadCreate(osThread(readAccelTask), NULL);
 	
-	  osThreadDef(sendDataTask, startSendDataTask, osPriorityAboveNormal, 0, 96);
+	osThreadDef(sendDataTask, startSendDataTask, osPriorityAboveNormal, 0, 96);
     sendDataHandle = osThreadCreate(osThread(sendDataTask), NULL);
 	
-	  osThreadDef(readTempTask, startReadTempTask, osPriorityNormal, 0, 96);
+	osThreadDef(readTempTask, startReadTempTask, osPriorityNormal, 0, 96);
     readTempHandle = osThreadCreate(osThread(readTempTask), NULL);
 	
-	  osThreadDef(sendCOMTask, startSendCOMTask, osPriorityHigh, 0, 96);
+	osThreadDef(sendCOMTask, startSendCOMTask, osPriorityHigh, 0, 96);
     sendCOMHandle = osThreadCreate(osThread(sendCOMTask), NULL);
 /*===============================End: Khoi tao cac task====================================*/
 
@@ -181,15 +181,15 @@ int main(void_t){
  */
 void_t lcdSendCmd (i8_t cmd)
 {
-  i8_t ibDataUpperNibble,ibDataLowerNibble;
-	i8_t array_ibDataString[4];
+    i8_t ibDataUpperNibble,ibDataLowerNibble;
+	i8_t ibDataStringArr[4];
 	ibDataUpperNibble = (cmd&SEND_LOWER_NIBBLE);
 	ibDataLowerNibble = ((cmd<<4)&SEND_LOWER_NIBBLE);
-	array_ibDataString[0] = ibDataUpperNibble | DISPLAY_ON_CURSOR_OFF; 
-	array_ibDataString[1] = ibDataUpperNibble | DISPLAY_OFF_CURSOR_OFF ;  
-	array_ibDataString[2] = ibDataLowerNibble | DISPLAY_ON_CURSOR_OFF; 
-	array_ibDataString[3] = ibDataLowerNibble | DISPLAY_OFF_CURSOR_OFF ;  
-	HAL_I2C_Master_Transmit (&hi2c1, SLAVE_ADDRESS_LCD,(i8_t *) array_ibDataString, 4, LCD_SIZE);
+	ibDataStringArr[0] = ibDataUpperNibble | DISPLAY_ON_CURSOR_OFF; 
+	ibDataStringArr[1] = ibDataUpperNibble | DISPLAY_OFF_CURSOR_OFF ;  
+	ibDataStringArr[2] = ibDataLowerNibble | DISPLAY_ON_CURSOR_OFF; 
+	ibDataStringArr[3] = ibDataLowerNibble | DISPLAY_OFF_CURSOR_OFF ;  
+	HAL_I2C_Master_Transmit (&hi2c1, SLAVE_ADDRESS_LCD,(i8_t *) ibDataStringArr, 4, LCD_SIZE);
 }
 /**
  * @func   lcdSendData
@@ -200,14 +200,14 @@ void_t lcdSendCmd (i8_t cmd)
 void_t lcdSendData (i8_t data)
 {
 	i8_t ibDataUpperNibble, ibDataLowerNibble;
-	i8_t array_ibDataString[4];
-  ibDataUpperNibble = (data & SEND_LOWER_NIBBLE);
+	i8_t ibDataStringArr[4];
+    ibDataUpperNibble = (data & SEND_LOWER_NIBBLE);
 	ibDataLowerNibble = ((data <<4) & SEND_LOWER_NIBBLE);
-	array_ibDataString[0] = ibDataUpperNibble | LCD_CLEAR; 
-	array_ibDataString[1] = ibDataUpperNibble | LCD_ALL_SEG_ON; 
-	array_ibDataString[2] = ibDataLowerNibble | LCD_CLEAR;  
-	array_ibDataString[3] = ibDataLowerNibble | LCD_ALL_SEG_ON;  
-	HAL_I2C_Master_Transmit (&hi2c1, SLAVE_ADDRESS_LCD,(i8_t *) array_ibDataString, 4, LCD_SIZE);
+	ibDataStringArr[0] = ibDataUpperNibble | LCD_CLEAR; 
+	ibDataStringArr[1] = ibDataUpperNibble | LCD_ALL_SEG_ON; 
+	ibDataStringArr[2] = ibDataLowerNibble | LCD_CLEAR;  
+	ibDataStringArr[3] = ibDataLowerNibble | LCD_ALL_SEG_ON;  
+	HAL_I2C_Master_Transmit (&hi2c1, SLAVE_ADDRESS_LCD,(i8_t *) ibDataStringArr, 4, LCD_SIZE);
 }
 /**
  * @func   lcdClear
@@ -251,10 +251,10 @@ void_t lcdPutCur(i32_t idwRow, i32_t idwCol)
 
 void_t lcdInit (void_t){
 	  // 4 bit initialisation
-	  HAL_Delay(50);  
-	  lcdSendCmd (INIT_WITH_8_BIT);
-	  HAL_Delay(5);  
-	  lcdSendCmd (INIT_WITH_8_BIT);
+	HAL_Delay(50);  
+	lcdSendCmd (INIT_WITH_8_BIT);
+	HAL_Delay(5);  
+	lcdSendCmd (INIT_WITH_8_BIT);
   	HAL_Delay(1); 
   	lcdSendCmd (INIT_WITH_8_BIT);
   	HAL_Delay(10);
@@ -294,15 +294,16 @@ void_t lcdSendString (i8_t *str){
  */
 void_t MPU6050_Init(void_t){
     i8_t ibCheck, ibData;
-	  HAL_I2C_Mem_Read(&hi2c1,MPU6050_ADDR,WHO_AM_I_REG,1,&ibCheck,1,MPU_SIZE);
-	  if(ibCheck == SIGNAL_PATH_RES){
-  	ibData =RESET_VALUE;	
-  	HAL_I2C_Mem_Write(&hi2c1,MPU6050_ADDR,PWR_MGMT_1_REG,1,&ibData,1,MPU_SIZE);
-	  ibData =XA_OFFSET_L_TC;
-	  HAL_I2C_Mem_Write(&hi2c1,MPU6050_ADDR,SMPLRT_DIV_REG,1,&ibData,1,MPU_SIZE);
-  	ibData =RESET_VALUE;
-    HAL_I2C_Mem_Write(&hi2c1,MPU6050_ADDR,ACCE_CONFIG_REG,1,&ibData,1,MPU_SIZE);
-    HAL_I2C_Mem_Write(&hi2c1,MPU6050_ADDR,GYRO_CONFIG_REG,1,&ibData,1,MPU_SIZE);		
+	HAL_I2C_Mem_Read(&hi2c1,MPU6050_ADDR,WHO_AM_I_REG,1,&ibCheck,1,MPU_SIZE);
+
+	if(ibCheck == SIGNAL_PATH_RES){
+  	    ibData =RESET_VALUE;	
+  	    HAL_I2C_Mem_Write(&hi2c1,MPU6050_ADDR,PWR_MGMT_1_REG,1,&ibData,1,MPU_SIZE);
+	    ibData =XA_OFFSET_L_TC;
+	    HAL_I2C_Mem_Write(&hi2c1,MPU6050_ADDR,SMPLRT_DIV_REG,1,&ibData,1,MPU_SIZE);
+  	    ibData =RESET_VALUE;
+        HAL_I2C_Mem_Write(&hi2c1,MPU6050_ADDR,ACCE_CONFIG_REG,1,&ibData,1,MPU_SIZE);
+        HAL_I2C_Mem_Write(&hi2c1,MPU6050_ADDR,GYRO_CONFIG_REG,1,&ibData,1,MPU_SIZE);		
   	}
 }
 /**
@@ -312,13 +313,13 @@ void_t MPU6050_Init(void_t){
  * @retval None
  */
 void_t MPU6050_readAccel(void_t){
-    i8_t array_ibRecData[6];
-    HAL_I2C_Mem_Read(&hi2c1,MPU6050_ADDR, ACCE_XOUT_H_REG, 1, array_ibRecData,6,MPU_SIZE);
-    iwAccelAxRaw = array_ibRecData[0] <<8 | array_ibRecData[1];
+    i8_t ibRecDataArr[6];
+    HAL_I2C_Mem_Read(&hi2c1,MPU6050_ADDR, ACCE_XOUT_H_REG, 1, ibRecDataArr,6,MPU_SIZE);
+    iwAccelAxRaw = ibRecDataArr[0] <<8 | ibRecDataArr[1];
     g_idwAccelAx = iwAccelAxRaw / DIVIDE_VALUE_ACCEL;
-    iwAccelAyRaw = array_ibRecData[2] <<8 | array_ibRecData[3];
+    iwAccelAyRaw = ibRecDataArr[2] <<8 | ibRecDataArr[3];
     g_idwAccelAy = iwAccelAyRaw / DIVIDE_VALUE_ACCEL;
-    iwAccelAzRaw = array_ibRecData[4] <<8 | array_ibRecData[5];
+    iwAccelAzRaw = ibRecDataArr[4] <<8 | ibRecDataArr[5];
     g_idwAccelAz = iwAccelAzRaw / DIVIDE_VALUE_ACCEL;
 }
 /**
@@ -328,13 +329,13 @@ void_t MPU6050_readAccel(void_t){
  * @retval None
  */
 void_t MPU6050_readGyro(void_t){
-    i8_t array_ibRecData[6];
-    HAL_I2C_Mem_Read(&hi2c1,MPU6050_ADDR,GYRO_XOUT_H_REG,1,array_ibRecData,6,MPU_SIZE);
-    iwGyroAxRaw = array_ibRecData[0] <<8|array_ibRecData[1];
+    i8_t ibRecDataArr[6];
+    HAL_I2C_Mem_Read(&hi2c1,MPU6050_ADDR,GYRO_XOUT_H_REG,1,ibRecDataArr,6,MPU_SIZE);
+    iwGyroAxRaw = ibRecDataArr[0] <<8|ibRecDataArr[1];
     g_idwGyryAx = iwGyroAxRaw / DIVIDE_VALUE_GYRO;
-    iwGyroAyRaw = array_ibRecData[2] <<8|array_ibRecData[3];
+    iwGyroAyRaw = ibRecDataArr[2] <<8|ibRecDataArr[3];
     g_idwGyryAy = iwGyroAyRaw / DIVIDE_VALUE_GYRO;
-    iwGyroAzRaw = array_ibRecData[4] <<8|array_ibRecData[5];
+    iwGyroAzRaw = ibRecDataArr[4] <<8|ibRecDataArr[5];
     g_idwGyryAz = iwGyroAzRaw / DIVIDE_VALUE_GYRO;
 }
 /*===================end MPU-6050==============================================*/
@@ -357,7 +358,7 @@ void_t microDelay (u16_t wDelay){
  * @retval None
  */
 i8_t DHT11_start (void_t){
-    i8_t Response = 0;
+    i8_t ibResponse = 0;
     GPIO_InitTypeDef GPIO_InitStructPrivate = {0};
     GPIO_InitStructPrivate.Pin = DHT11_PIN;
     GPIO_InitStructPrivate.Mode = GPIO_MODE_OUTPUT_PP;
@@ -372,16 +373,18 @@ i8_t DHT11_start (void_t){
     GPIO_InitStructPrivate.Pull = GPIO_PULLUP;
     HAL_GPIO_Init(DHT11_PORT, &GPIO_InitStructPrivate);   // set the pin as input
     microDelay (40);
+
     if (!(HAL_GPIO_ReadPin (DHT11_PORT, DHT11_PIN))){
         microDelay (80);
-        if ((HAL_GPIO_ReadPin (DHT11_PORT, DHT11_PIN))) Response = 1;
+        if ((HAL_GPIO_ReadPin (DHT11_PORT, DHT11_PIN))) ibResponse = 1;
     }
     g_dwPreMillis = HAL_GetTick();
     g_dwCurrentMillis = HAL_GetTick();
+
     while ((HAL_GPIO_ReadPin (DHT11_PORT, DHT11_PIN)) &&g_dwPreMillis + 2 >g_dwCurrentMillis){
         g_dwCurrentMillis = HAL_GetTick();
     }
-    return Response;
+    return ibResponse;
 }
 /**
  * @func   DHT11_read
@@ -390,27 +393,29 @@ i8_t DHT11_start (void_t){
  * @retval None
  */
 i8_t DHT11_Read (void_t){
-    i8_t a,b;
-    for (a=0;a<8;a++){
+    i8_t ibDataTem,ibDataHumidity;
+    for (ibDataTem=0;ibDataTem<8;ibDataTem++){
         g_dwPreMillis = HAL_GetTick();
         g_dwCurrentMillis = HAL_GetTick();
         while (!(HAL_GPIO_ReadPin (DHT11_PORT, DHT11_PIN)) &&g_dwPreMillis + 2 >g_dwCurrentMillis){  
             g_dwCurrentMillis = HAL_GetTick();
             }
         microDelay (40);  
+
         if (!(HAL_GPIO_ReadPin (DHT11_PORT, DHT11_PIN))){
-            b&= ~(1<<(7-a));
+            ibDataHumidity&= ~(1<<(7-ibDataTem));
         }
         else{
-            b|= (1<<(7-a));
+            ibDataHumidity|= (1<<(7-ibDataTem));
             g_dwPreMillis = HAL_GetTick();
             g_dwCurrentMillis = HAL_GetTick();
         }
+
         while ((HAL_GPIO_ReadPin (DHT11_PORT, DHT11_PIN)) &&g_dwPreMillis + 2 >g_dwCurrentMillis){  
             g_dwCurrentMillis = HAL_GetTick();
         }
     }
-    return b;
+    return ibDataHumidity;
 }
 /*===============================END DHT-11==============================================*/
 
@@ -422,23 +427,23 @@ i8_t DHT11_Read (void_t){
  * @retval None
  */
 void_t sendToLCD(i32_t idwTemp, i32_t idwAccelAx, i32_t idwAccelAy, i32_t idwAccelAz){
-	  //send data to LCD
-		lcdClear();
-		sprintf(buff, "%0.1f", idwAccelAx); 
-		lcdSendString("AccelAx=");
-		lcdSendString(g_ibBuff);
-		lcdPutCur(0, 8);
-		sprintf(buff, "%0.1f", idwAccelAy); 
-		lcdSendString("AccelAy=");
-		lcdSendString(buff);
-		lcdPutCur(1,0);
-		sprintf(buff, "%0.1f", idwAccelAz);
-		lcdSendString("AccelAz=");
-		lcdSendString(buff);
-		lcdPutCur(1, 8);
-		sprintf(buff, "%0.1f", idwTemp); 
-		lcdSendString("T=");
-		lcdSendString(buff);
+	//send data to LCD
+	lcdClear();
+	sprintf(buff, "%0.1f", idwAccelAx); 
+	lcdSendString("AccelAx=");
+	lcdSendString(g_ibBuff);
+	lcdPutCur(0, 8);
+	sprintf(buff, "%0.1f", idwAccelAy); 
+	lcdSendString("AccelAy=");
+	lcdSendString(buff);
+	lcdPutCur(1,0);
+	sprintf(buff, "%0.1f", idwAccelAz);
+	lcdSendString("AccelAz=");
+	lcdSendString(buff);
+	lcdPutCur(1, 8);
+	sprintf(buff, "%0.1f", idwTemp); 
+	lcdSendString("T=");
+	lcdSendString(buff);
 }
 /**
  * @func   getDataDHT
@@ -447,13 +452,14 @@ void_t sendToLCD(i32_t idwTemp, i32_t idwAccelAx, i32_t idwAccelAy, i32_t idwAcc
  * @retval None
  */
 void_t getDataDHT(void_t){
-		if(DHT11_Start()){
+    if(DHT11_Start()){
         g_ibHumidityIntegral = DHT11_Read(); 
         g_ibHumidityDecimal = DHT11_Read(); 
         g_ibCelsiusIntegral = DHT11_Read(); 
         g_ibCelsiusDecimal = DHT11_Read(); 
         g_ibSum = DHT11_Read(); 
-        if (RHI + RHD + TCI + TCD == SUM){
+
+        if (g_ibHumidityIntegral + g_ibHumidityDecimal + g_ibCelsiusIntegral + g_ibCelsiusDecimal == g_ibSum){
             g_idwCelsius    = (i32_t)g_ibCelsiusIntegral + (i32_t)(g_ibCelsiusDecimal/10.0);
             g_idwFahrenheit =  g_idwCelsius  * 9/5 + 32;
             g_idwHumidity   = (i32_t)g_ibHumidityIntegral + (i32_t)(g_ibHumidityDecimal/10.0);
@@ -487,6 +493,7 @@ void_t systemClockConfig(void_t){
     RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
     RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
     RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL9;
+
     if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
         errorHandler();
     }
@@ -517,6 +524,7 @@ static void_t MX_I2C1_Init(void_t){
     hi2c1.Init.OwnAddress2 = 0;
     hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
     hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+
     if (HAL_I2C_Init(&hi2c1) != HAL_OK) {
         errorHandler();
     }
@@ -540,15 +548,18 @@ static void_t MX_TIM1_Init(void_t){
     htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
     htim1.Init.RepetitionCounter = 0;
     htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+
     if (HAL_TIM_Base_Init(&htim1) != HAL_OK) {
         errorHandler();
     }
     sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+
     if (HAL_TIM_ConfigClockSource(&htim1, &sClockSourceConfig) != HAL_OK){
         errorHandler();
     }
     sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
     sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+
     if (HAL_TIMEx_MasterConfigSynchronization(&htim1, &sMasterConfig) != HAL_OK){
         errorHandler();
     } 
@@ -568,6 +579,7 @@ static void_t MX_USART2_UART_Init(void_t)
     huart2.Init.Mode = UART_MODE_TX_RX;
     huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
     huart2.Init.OverSampling = UART_OVERSAMPLING_16;
+
     if (HAL_UART_Init(&huart2) != HAL_OK){
         errorHandler();
     }
@@ -628,12 +640,12 @@ static void_t MX_GPIO_Init(void_t){
  * @retval None
  */
 void_t HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
-		BaseType_t xHigher;
-		if (ibRxData == 'h') {
-				xHigher = xTaskResumeFromISR(sendCOMHandle);
-				portEND_SWITCHING_ISR(xHigher);
-		}
-		HAL_UART_Receive_IT(&huart2, &ibRxData, 1);
+	BaseType_t xHigher;
+	if (ibRxData == 'h') {
+		xHigher = xTaskResumeFromISR(sendCOMHandle);
+		portEND_SWITCHING_ISR(xHigher);
+	}
+	HAL_UART_Receive_IT(&huart2, &ibRxData, 1);
 }
 /**
  * @func   startSendCOMTask
@@ -643,14 +655,14 @@ void_t HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
  */
 void_t startSendCOMTask(void_t const * argument) {
    	osEvent recvTaskData;//su kien 
-		while(1) {
-				vTaskSuspend(NULL);
-				printf("Lay du lieu tu ngat\n");
-				recvTaskData = osMailGet(DataMailQueueHandle, 100);
-				array_ibDataString *data = recvTaskData.value.p;//chi ra rang thong bao la mot con tro
-				printf("g_idwAccelAx: %0.1f, g_idwAccelAy: %0.1f, g_idwAccelAz: %0.1f, T: %0.1f \n", data->dataAccelX, data->dataAccelY, data->dataAccelZ, data->temp);
-				osMailFree(DataMailQueueHandle, data);
-		}
+	while(1) {
+		vTaskSuspend(NULL);
+		printf("Lay du lieu tu ngat\n");
+		recvTaskData = osMailGet(DataMailQueueHandle, 100);
+		ibDataStringArr *data = recvTaskData.value.p;//chi ra rang thong bao la mot con tro
+		printf("g_idwAccelAx: %0.1f, g_idwAccelAy: %0.1f, g_idwAccelAz: %0.1f, T: %0.1f \n", data->dataAccelX, data->dataAccelY, data->dataAccelZ, data->temp);
+		osMailFree(DataMailQueueHandle, data);
+	}
 }
 /**
  * @func   startReadTempTask
@@ -659,20 +671,20 @@ void_t startSendCOMTask(void_t const * argument) {
  * @retval None
  */
 void_t startReadTempTask(void_t const * argument){
-		while(1){
-		   	getDataDHT();
-	  		//phan bo hang doi thu va dien vao no du lieu
-	  		array_ibDataString *ibTaskData = osMailAlloc(DataMailQueueHandle, 100);
-	 	  	ibTaskData->type = 1;
-	  		ibTaskData->temp = tCelsius;
-				ibTaskData->dataAccelX = g_idwAccelAx;
-				ibTaskData->dataAccelY = g_idwAccelAy;
-				ibTaskData->dataAccelZ = g_idwAccelAz;
-				ibTaskData->count = wCount;
-				osMailPut(DataMailQueueHandle,(void_t *)ibTaskData);
-				wCount++;
-				osDelay(1000);
-		}
+	while(1){
+	 	getDataDHT();
+		//phan bo hang doi thu va dien vao no du lieu
+		ibDataStringArr *ibTaskData = osMailAlloc(DataMailQueueHandle, 100);
+		ibTaskData->type = 1;
+		ibTaskData->temp = tCelsius;
+		ibTaskData->dataAccelX = g_idwAccelAx;
+		ibTaskData->dataAccelY = g_idwAccelAy;
+		ibTaskData->dataAccelZ = g_idwAccelAz;
+		ibTaskData->count = wCount;
+		osMailPut(DataMailQueueHandle,(void_t *)ibTaskData);
+		wCount++;
+		osDelay(1000);
+	}
 }
 /**
  * @func   startReadAccelTask
@@ -682,20 +694,20 @@ void_t startReadTempTask(void_t const * argument){
  */
 
 void_t startReadAccelTask(void_t const * argument){
-		while(1){
-				MPU6050_readAccel();
-				//phan bo hang doi thu va dien du lieu vao do
-				array_ibDataString *ibTaskData = osMailAlloc(DataMailQueueHandle, 100);
-				ibTaskData->type = 2;
-				ibTaskData->temp = tCelsius;
-				ibTaskData->dataAccelX = g_idwAccelAx;
-				ibTaskData->dataAccelY = g_idwAccelAy;
-				ibTaskData->dataAccelZ = g_idwAccelAz;
-				ibTaskData->count = wCount;
-				osMailPut(DataMailQueueHandle,(void_t *)ibTaskData);
-				wCount++;
-				osDelay(200);
-		}
+	while(1){
+    	MPU6050_readAccel();
+		//phan bo hang doi thu va dien du lieu vao do
+		ibDataStringArr *ibTaskData = osMailAlloc(DataMailQueueHandle, 100);
+		ibTaskData->type = 2;
+		ibTaskData->temp = tCelsius;
+		ibTaskData->dataAccelX = g_idwAccelAx;
+		ibTaskData->dataAccelY = g_idwAccelAy;
+		ibTaskData->dataAccelZ = g_idwAccelAz;
+		ibTaskData->count = wCount
+		osMailPut(DataMailQueueHandle,(void_t *)ibTaskData);
+		wCount++;
+		osDelay(200);
+	}
 }
 /**
  * @func   startSendDataTask
@@ -704,19 +716,20 @@ void_t startReadAccelTask(void_t const * argument){
  * @retval None
  */
 void_t startSendDataTask(void_t const * argument){
-		osEvent recvTaskData;
-		while(1){
-				recvTaskData = osMailGet(DataMailQueueHandle, 100);
-				array_ibDataString *data = recvTaskData.value.p;
-				if (data->type == 1) {
-				  	sendToLCD(data->temp, data->dataAccelX, data->dataAccelY, data->dataAccelZ);
-				  	osMailFree(DataMailQueueHandle, data);
-					  wCount--;
-				} else if (data->type == 2) {
-					  sendToLCD(data->temp, data->dataAccelX, data->dataAccelY, data->dataAccelZ); 
-					  osMailFree(DataMailQueueHandle, data);
-				  	wCount--;
-					  osDelay(200);
-				} 
-		}
+	osEvent recvTaskData;
+	while(1){
+		recvTaskData = osMailGet(DataMailQueueHandle, 100);
+		ibDataStringArr *data = recvTaskData.value.p;
+
+		if (data->type == 1) {
+		  	sendToLCD(data->temp, data->dataAccelX, data->dataAccelY, data->dataAccelZ);
+			osMailFree(DataMailQueueHandle, data);
+		    wCount--;
+		} else if (data->type == 2) {
+		    sendToLCD(data->temp, data->dataAccelX, data->dataAccelY, data->dataAccelZ); 
+			osMailFree(DataMailQueueHandle, data);
+			wCount--;
+			osDelay(200);
+		} 
+	}
 }
