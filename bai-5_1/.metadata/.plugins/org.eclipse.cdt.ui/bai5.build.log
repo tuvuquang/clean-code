@@ -1,0 +1,7 @@
+14:25:24 **** Incremental Build of configuration Debug for project bai5 ****
+Info: Internal Builder is used for build
+gcc "-IE:\\Funix302_iot\\Lab9\\bai5\\bai5\\Libraries" -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -o bai5.exe "Libraries\\queue.o" main.o 
+
+14:25:25 Build Finished. 0 errors, 0 warnings. (took 453ms)
+

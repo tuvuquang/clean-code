@@ -1,0 +1,232 @@
+/*******************************************************************************
+ *
+ * Description: Lab9- Bai5
+ *
+ *
+ * Last Changed By:  $Author: TrungNT $
+ * Revision:         $Revision: 1.0 $
+ * Last Changed:     $Date: 22/9/2021 $
+ *
+ ******************************************************************************/
+#include <stdint.h>
+#include <stdio.h>
+#include "queue.h"
+//--------------------------------------------------------------------
+uint8_t SerialPoll(void);
+static void check_data_transmis(void);
+//--------------------------------------------------------------------
+#define SIZE_QUEUE_DATA_RX 256
+//--------------------------------------------------------------------
+//Sử dụng kiểu liệt kê Enum để kiểm tra các Byte nhận được bao gồm Byte Start,
+//các Byte Data và Byte Checkxor.
+/* @brief State receiver */
+typedef enum {
+	RX_STATE_START_BYTE, RX_STATE_DATA_BYTES, RX_STATE_CXOR_BYTE
+} RX_STATE;
+//--------------------------------------------------------------------
+/*
+ * Sử dụng kiểu liệt kê Enum liệt kê các trạng thái phản hồi khi nhận dữ liệu.
+ */
+/* @brief State frame uart */
+typedef enum {
+	UART_STATE_IDLE,
+	UART_STATE_DATA_RECEIVED,
+	UART_STATE_ACK_RECEIVED,
+	UART_STATE_NACK_RECEIVED,
+	UART_STATE_ERROR,
+	UART_STATE_RX_TIMEOUT,
+} UART_STATE;
+
+//Khởi tạo giá trị kích thước mảng nhận dữ liệu là 16 bytes.
+#define RX_BUFFER_SIZE	16
+
+//Khởi tạo các giá trị cho các byte Start, byte ACK, byte NACK, byte CheckXor
+
+/* @brief Start of frame */
+#define FRAME_SOF	0xB1
+
+/* @brief Frame ack and nack */
+#define FRAME_ACK	0x06
+#define FRAME_NACK	0x15
+
+/* @brief check xor init  */
+#define CXOR_INIT_VAL	0xFF
+
+/*
+ * Gán các giá trị các phần tử trong mảng byRxBuffer với các giá trị kiểm tra
+ * dữ liệu sau khi nhận được dữ liệu gồm các byte Command ID, Command Type, và Data.
+ */
+#define CMD_ID					byRxBuffer[2]
+#define CMD_TYPE				byRxBuffer[3]
+#define CMD_DATA_EPOINT			byRxBuffer[4]
+#define CMD_DATA_STATE			byRxBuffer[5]
+
+/* Private variables---------------------------------------------------------------*/
+
+static uint8_t byRxBufState;
+static uint8_t byIndexRxBuf;
+static uint8_t byCheckXorRxBuf;
+static buffqueue_t serialQueueRx;
+static uint8_t pBuffDataRx[SIZE_QUEUE_DATA_RX];
+uint8_t byRxBuffer[RX_BUFFER_SIZE] = { 0 };
+
+int main(void) {
+	// Define String
+	uint8_t i;
+	uint8_t stateRx;
+
+	unsigned int frame[9];
+
+	/* Initializes receive register buffer	*/
+	bufInit(pBuffDataRx, &serialQueueRx, sizeof(pBuffDataRx[0]),
+			SIZE_QUEUE_DATA_RX);
+	printf("Enter Frame: ");
+	for (i = 0; i < 9; i++) {
+		fflush(stdout);
+		scanf("%x", &frame[i]);
+		bufEnDat(&serialQueueRx, (uint8_t*) &frame[i]);
+	}
+	stateRx = SerialPoll();
+	if (stateRx != UART_STATE_IDLE) {
+		switch (stateRx) {
+		case UART_STATE_ACK_RECEIVED:
+			printf("UART_STATE_ACK_RECEIVED\r\n");
+			break;
+		case UART_STATE_NACK_RECEIVED:
+			printf("UART_STATE_NACK_RECEIVED\r\n");
+			break;
+		case UART_STATE_DATA_RECEIVED:
+			printf("UART_STATE_DATA_RECEIVED\r\n");
+			check_data_transmis();
+			break;
+		case UART_STATE_ERROR:
+		case UART_STATE_RX_TIMEOUT:
+			printf("UART_STATE_RX_TIMEOUT\r\n");
+			break;
+
+		default:
+			break;
+		}
+	}
+	/* Loop forever */
+	while (1) {
+
+	}
+}
+uint8_t SerialPoll(void) {
+	uint8_t byRxData;
+	uint8_t byUartState = (uint8_t) UART_STATE_IDLE;
+	while ((bufNumItems(&serialQueueRx) != 0)
+			&& (byUartState == UART_STATE_IDLE)) {
+		bufDeDat(&serialQueueRx, &byRxData);
+	}
+	switch (byRxBufState) {
+	case RX_STATE_START_BYTE:
+		if (byRxData == FRAME_SOF) {
+			byIndexRxBuf = 0;
+			byCheckXorRxBuf = CXOR_INIT_VAL;
+			byRxBufState = RX_STATE_DATA_BYTES;
+		} else if (byRxData == FRAME_ACK) {
+			byUartState = UART_STATE_ACK_RECEIVED;
+
+		} else if (byRxData == FRAME_NACK) {
+			byUartState = UART_STATE_NACK_RECEIVED;
+
+		} else {
+			byUartState = UART_STATE_ERROR;
+		}
+		break;
+	case RX_STATE_DATA_BYTES:
+		if (byIndexRxBuf < RX_BUFFER_SIZE) {
+			byRxBuffer[byIndexRxBuf] = byRxData;
+			if (byIndexRxBuf > 0) {
+				/* Caculate check xor */
+				byCheckXorRxBuf ^= byRxData;
+			}
+			if (++byIndexRxBuf == *byRxBuffer) {
+				byRxBufState = RX_STATE_CXOR_BYTE;
+			}
+		} else {
+			byRxBufState = RX_STATE_START_BYTE;
+			byUartState = UART_STATE_ERROR;
+		}
+		break;
+	case RX_STATE_CXOR_BYTE:
+		if (byRxData == byCheckXorRxBuf) {
+			byUartState = UART_STATE_DATA_RECEIVED;
+		} else {
+			byUartState = UART_STATE_ERROR;
+		}
+	default:
+		byRxBufState = RX_STATE_START_BYTE;
+		break;
+	}
+	return byUartState;
+}
+
+/**
+ * @func	check_data_transmis
+ * @brief	check data received from terminal
+ * @param	None
+ * @retval	None
+ */
+static void check_data_transmis(void) {
+	if (CMD_ID== 0x00)
+	{
+		if(CMD_TYPE == 0x00)
+		{
+			printf("Board STM32F4 Nucleo\r\n");
+		}
+	}
+	else if(CMD_ID == 0x01)
+	{
+		if(CMD_TYPE == 0x02)
+		{
+			if(CMD_DATA_EPOINT ==0xff)
+			{
+				printf("Led turned on\r\n");
+			}
+			else
+			{
+				printf("Led turned off\r\n");
+			}
+		}
+	}
+	else if(CMD_ID == 0x04)
+	{
+		if(CMD_TYPE == 0x02)
+		{
+			if(CMD_DATA_EPOINT == 0xff)
+			{
+				printf("buzzer turned on\r\n");
+			}
+			else
+			{
+				printf("buzzer turned off\r\n");
+			}
+		}
+	}
+	else if(CMD_ID == 0x84)
+	{
+		if(CMD_TYPE == 0x01)
+		{
+			printf("Temperature of sensor is 33 oC\r\n");
+		}
+	}
+	else if(CMD_ID == 0x85)
+	{
+		if(CMD_TYPE == 0x01)
+		{
+			printf("Humidity of sensor is 82 %\r\n");
+		}
+	}
+	else if(CMD_ID == 0x86)
+	{
+		if(CMD_TYPE == 0x01)
+		{
+			printf("Light intensity of sensor is 50 lux\r\n");
+		}
+	}
+
+}
+

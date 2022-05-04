@@ -1,0 +1,375 @@
+23:32:25 **** Rebuild of configuration Debug for project bai5 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+..\main.c: In function 'main':
+..\main.c:81:10: warning: passing argument 1 of 'bufInit' from incompatible pointer type
+  bufInit(pBuffDataRx, &serialQueueRx, sizeof(pBuffDataRx[0]),
+          ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:70:1: note: expected 'buffqueue_p' but argument is of type 'uint8_t *'
+ bufInit(
+ ^
+..\main.c:81:2: error: too many arguments to function 'bufInit'
+  bufInit(pBuffDataRx, &serialQueueRx, sizeof(pBuffDataRx[0]),
+  ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:70:1: note: declared here
+ bufInit(
+ ^
+..\main.c:87:3: error: too few arguments to function 'bufEnDat'
+   bufEnDat(&serialQueueRx, (uint8_t*) &frame[i]);
+   ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:104:1: note: declared here
+ bufEnDat(
+ ^
+..\main.c: In function 'SerialPoll':
+..\main.c:121:3: error: too few arguments to function 'bufDeDat'
+   bufDeDat(&serialQueueRx, &byRxData);
+   ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:118:1: note: declared here
+ bufDeDat(
+ ^
+..\main.c: In function 'check_data_transmis':
+..\main.c:220:4: warning: unknown conversion type character 0xd in format [-Wformat=]
+    printf("Humidity of sensor is 82 %\r\n");
+    ^
+23:32:40 **** Incremental Build of configuration Debug for project bai5 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+..\main.c: In function 'main':
+..\main.c:81:10: warning: passing argument 1 of 'bufInit' from incompatible pointer type
+  bufInit(pBuffDataRx, &serialQueueRx, sizeof(pBuffDataRx[0]),
+          ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:70:1: note: expected 'buffqueue_p' but argument is of type 'uint8_t *'
+ bufInit(
+ ^
+..\main.c:81:2: error: too many arguments to function 'bufInit'
+  bufInit(pBuffDataRx, &serialQueueRx, sizeof(pBuffDataRx[0]),
+  ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:70:1: note: declared here
+ bufInit(
+ ^
+..\main.c:87:3: error: too few arguments to function 'bufEnDat'
+   bufEnDat(&serialQueueRx, (uint8_t*) &frame[i]);
+   ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:104:1: note: declared here
+ bufEnDat(
+ ^
+..\main.c: In function 'SerialPoll':
+..\main.c:121:3: error: too few arguments to function 'bufDeDat'
+   bufDeDat(&serialQueueRx, &byRxData);
+   ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:118:1: note: declared here
+ bufDeDat(
+ ^
+..\main.c: In function 'check_data_transmis':
+..\main.c:220:4: warning: unknown conversion type character 0xd in format [-Wformat=]
+    printf("Humidity of sensor is 82% \r\n");
+    ^
+23:32:45 **** Incremental Build of configuration Debug for project bai5 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+..\main.c: In function 'main':
+..\main.c:81:10: warning: passing argument 1 of 'bufInit' from incompatible pointer type
+  bufInit(pBuffDataRx, &serialQueueRx, sizeof(pBuffDataRx[0]),
+          ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:70:1: note: expected 'buffqueue_p' but argument is of type 'uint8_t *'
+ bufInit(
+ ^
+..\main.c:81:2: error: too many arguments to function 'bufInit'
+  bufInit(pBuffDataRx, &serialQueueRx, sizeof(pBuffDataRx[0]),
+  ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:70:1: note: declared here
+ bufInit(
+ ^
+..\main.c:87:3: error: too few arguments to function 'bufEnDat'
+   bufEnDat(&serialQueueRx, (uint8_t*) &frame[i]);
+   ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:104:1: note: declared here
+ bufEnDat(
+ ^
+..\main.c: In function 'SerialPoll':
+..\main.c:121:3: error: too few arguments to function 'bufDeDat'
+   bufDeDat(&serialQueueRx, &byRxData);
+   ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:118:1: note: declared here
+ bufDeDat(
+ ^
+23:32:48 **** Incremental Build of configuration Debug for project bai5 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+..\main.c: In function 'main':
+..\main.c:81:10: warning: passing argument 1 of 'bufInit' from incompatible pointer type
+  bufInit(pBuffDataRx, &serialQueueRx, sizeof(pBuffDataRx[0]),
+          ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:70:1: note: expected 'buffqueue_p' but argument is of type 'uint8_t *'
+ bufInit(
+ ^
+..\main.c:81:2: error: too many arguments to function 'bufInit'
+  bufInit(pBuffDataRx, &serialQueueRx, sizeof(pBuffDataRx[0]),
+  ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:70:1: note: declared here
+ bufInit(
+ ^
+..\main.c:87:3: error: too few arguments to function 'bufEnDat'
+   bufEnDat(&serialQueueRx, (uint8_t*) &frame[i]);
+   ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:104:1: note: declared here
+ bufEnDat(
+ ^
+..\main.c: In function 'SerialPoll':
+..\main.c:121:3: error: too few arguments to function 'bufDeDat'
+   bufDeDat(&serialQueueRx, &byRxData);
+   ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:118:1: note: declared here
+ bufDeDat(
+ ^
+23:32:49 **** Incremental Build of configuration Debug for project bai5 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+..\main.c: In function 'main':
+..\main.c:81:10: warning: passing argument 1 of 'bufInit' from incompatible pointer type
+  bufInit(pBuffDataRx, &serialQueueRx, sizeof(pBuffDataRx[0]),
+          ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:70:1: note: expected 'buffqueue_p' but argument is of type 'uint8_t *'
+ bufInit(
+ ^
+..\main.c:81:2: error: too many arguments to function 'bufInit'
+  bufInit(pBuffDataRx, &serialQueueRx, sizeof(pBuffDataRx[0]),
+  ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:70:1: note: declared here
+ bufInit(
+ ^
+..\main.c:87:3: error: too few arguments to function 'bufEnDat'
+   bufEnDat(&serialQueueRx, (uint8_t*) &frame[i]);
+   ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:104:1: note: declared here
+ bufEnDat(
+ ^
+..\main.c: In function 'SerialPoll':
+..\main.c:121:3: error: too few arguments to function 'bufDeDat'
+   bufDeDat(&serialQueueRx, &byRxData);
+   ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:118:1: note: declared here
+ bufDeDat(
+ ^
+23:33:26 **** Incremental Build of configuration Debug for project bai5 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+..\main.c: In function 'main':
+..\main.c:81:10: warning: passing argument 1 of 'bufInit' from incompatible pointer type
+  bufInit(pBuffDataRx, &serialQueueRx, sizeof(pBuffDataRx[0]),
+          ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:70:1: note: expected 'buffqueue_p' but argument is of type 'uint8_t *'
+ bufInit(
+ ^
+..\main.c:81:2: error: too many arguments to function 'bufInit'
+  bufInit(pBuffDataRx, &serialQueueRx, sizeof(pBuffDataRx[0]),
+  ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:70:1: note: declared here
+ bufInit(
+ ^
+..\main.c:87:3: error: too few arguments to function 'bufEnDat'
+   bufEnDat(&serialQueueRx, (uint8_t*) &frame[i]);
+   ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:104:1: note: declared here
+ bufEnDat(
+ ^
+..\main.c: In function 'SerialPoll':
+..\main.c:121:3: error: too few arguments to function 'bufDeDat'
+   bufDeDat(&serialQueueRx, &byRxData);
+   ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:118:1: note: declared here
+ bufDeDat(
+ ^
+23:33:28 **** Incremental Build of configuration Debug for project bai5 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "Libraries\\queue.o" "..\\..\\..\\bai5\\bai5\\Libraries\\queue.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+..\main.c: In function 'main':
+..\main.c:81:10: warning: passing argument 1 of 'bufInit' from incompatible pointer type
+  bufInit(pBuffDataRx, &serialQueueRx, sizeof(pBuffDataRx[0]),
+          ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:70:1: note: expected 'buffqueue_p' but argument is of type 'uint8_t *'
+ bufInit(
+ ^
+..\main.c:81:2: error: too many arguments to function 'bufInit'
+  bufInit(pBuffDataRx, &serialQueueRx, sizeof(pBuffDataRx[0]),
+  ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:70:1: note: declared here
+ bufInit(
+ ^
+..\main.c:87:3: error: too few arguments to function 'bufEnDat'
+   bufEnDat(&serialQueueRx, (uint8_t*) &frame[i]);
+   ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:104:1: note: declared here
+ bufEnDat(
+ ^
+..\main.c: In function 'SerialPoll':
+..\main.c:121:3: error: too few arguments to function 'bufDeDat'
+   bufDeDat(&serialQueueRx, &byRxData);
+   ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:118:1: note: declared here
+ bufDeDat(
+ ^
+23:34:28 **** Incremental Build of configuration Debug for project bai5 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+..\main.c: In function 'main':
+..\main.c:81:10: warning: passing argument 1 of 'bufInit' from incompatible pointer type
+  bufInit(pBuffDataRx, &serialQueueRx, sizeof(pBuffDataRx[0]),SIZE_QUEUE_DATA_RX);
+          ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:70:1: note: expected 'buffqueue_p' but argument is of type 'uint8_t *'
+ bufInit(
+ ^
+..\main.c:81:2: error: too many arguments to function 'bufInit'
+  bufInit(pBuffDataRx, &serialQueueRx, sizeof(pBuffDataRx[0]),SIZE_QUEUE_DATA_RX);
+  ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:70:1: note: declared here
+ bufInit(
+ ^
+..\main.c:86:3: error: too few arguments to function 'bufEnDat'
+   bufEnDat(&serialQueueRx, (uint8_t*) &frame[i]);
+   ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:104:1: note: declared here
+ bufEnDat(
+ ^
+..\main.c: In function 'SerialPoll':
+..\main.c:120:3: error: too few arguments to function 'bufDeDat'
+   bufDeDat(&serialQueueRx, &byRxData);
+   ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:118:1: note: declared here
+ bufDeDat(
+ ^
+23:34:32 **** Incremental Build of configuration Debug for project bai5 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+..\main.c: In function 'main':
+..\main.c:81:10: warning: passing argument 1 of 'bufInit' from incompatible pointer type
+  bufInit(pBuffDataRx, &serialQueueRx, sizeof(pBuffDataRx[0]),SIZE_QUEUE_DATA_RX);
+          ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:70:1: note: expected 'buffqueue_p' but argument is of type 'uint8_t *'
+ bufInit(
+ ^
+..\main.c:81:2: error: too many arguments to function 'bufInit'
+  bufInit(pBuffDataRx, &serialQueueRx, sizeof(pBuffDataRx[0]),SIZE_QUEUE_DATA_RX);
+  ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:70:1: note: declared here
+ bufInit(
+ ^
+..\main.c:86:3: error: too few arguments to function 'bufEnDat'
+   bufEnDat(&serialQueueRx, (uint8_t*) &frame[i]);
+   ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:104:1: note: declared here
+ bufEnDat(
+ ^
+..\main.c: In function 'SerialPoll':
+..\main.c:120:3: error: too few arguments to function 'bufDeDat'
+   bufDeDat(&serialQueueRx, &byRxData);
+   ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:118:1: note: declared here
+ bufDeDat(
+ ^
+23:35:29 **** Incremental Build of configuration Debug for project bai5 ****
+Info: Internal Builder is used for build
+gcc "-IE:\\Funix302_iot\\Lab9\\bai5\\bai5\\Libraries" -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc "-IE:\\Funix302_iot\\Lab9\\bai5\\bai5\\Libraries" -O0 -g3 -Wall -c -fmessage-length=0 -o "Libraries\\queue.o" "..\\..\\..\\bai5\\bai5\\Libraries\\queue.c" 
+gcc -o bai5.exe "Libraries\\queue.o" main.o 
+Info: Nothing to build for bai5
+00:10:27 **** Incremental Build of configuration Debug for project bai5 ****
+Info: Internal Builder is used for build
+gcc "-IE:\\Funix302_iot\\Lab9\\bai5\\bai5\\Libraries" -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -o bai5.exe "Libraries\\queue.o" main.o 
+00:16:12 **** Incremental Build of configuration Debug for project bai5 ****
+Info: Internal Builder is used for build
+gcc "-IE:\\Funix302_iot\\Lab9\\bai5\\bai5\\Libraries" -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+..\main.c: In function 'main':
+..\main.c:111:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+gcc -o bai5.exe "Libraries\\queue.o" main.o 
+00:16:25 **** Incremental Build of configuration Debug for project bai5 ****
+Info: Internal Builder is used for build
+gcc "-IE:\\Funix302_iot\\Lab9\\bai5\\bai5\\Libraries" -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -o bai5.exe "Libraries\\queue.o" main.o 
+00:17:18 **** Incremental Build of configuration Debug for project bai5 ****
+Info: Internal Builder is used for build
+gcc "-IE:\\Funix302_iot\\Lab9\\bai5\\bai5\\Libraries" -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -o bai5.exe "Libraries\\queue.o" main.o 
+00:31:50 **** Incremental Build of configuration Debug for project bai5 ****
+Info: Internal Builder is used for build
+gcc "-IE:\\Funix302_iot\\Lab9\\bai5\\bai5\\Libraries" -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -o bai5.exe "Libraries\\queue.o" main.o 
+00:35:10 **** Incremental Build of configuration Debug for project bai5 ****
+Info: Internal Builder is used for build
+gcc "-IE:\\Funix302_iot\\Lab9\\bai5\\bai5\\Libraries" -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -o bai5.exe "Libraries\\queue.o" main.o 
+00:36:47 **** Incremental Build of configuration Debug for project bai5 ****
+Info: Internal Builder is used for build
+gcc "-IE:\\Funix302_iot\\Lab9\\bai5\\bai5\\Libraries" -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -o bai5.exe "Libraries\\queue.o" main.o 
+00:37:46 **** Incremental Build of configuration Debug for project bai5 ****
+Info: Internal Builder is used for build
+gcc "-IE:\\Funix302_iot\\Lab9\\bai5\\bai5\\Libraries" -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -o bai5.exe "Libraries\\queue.o" main.o 
+00:39:07 **** Incremental Build of configuration Debug for project bai5 ****
+Info: Internal Builder is used for build
+gcc "-IE:\\Funix302_iot\\Lab9\\bai5\\bai5\\Libraries" -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -o bai5.exe "Libraries\\queue.o" main.o 
+14:08:15 **** Incremental Build of configuration Debug for project bai5 ****
+Info: Internal Builder is used for build
+gcc "-IE:\\Funix302_iot\\Lab9\\bai5\\bai5\\Libraries" -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -o bai5.exe "Libraries\\queue.o" main.o 
+14:13:51 **** Incremental Build of configuration Debug for project bai5 ****
+Info: Internal Builder is used for build
+gcc "-IE:\\Funix302_iot\\Lab9\\bai5\\bai5\\Libraries" -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -o bai5.exe "Libraries\\queue.o" main.o 
+14:15:48 **** Incremental Build of configuration Debug for project bai5 ****
+Info: Internal Builder is used for build
+gcc "-IE:\\Funix302_iot\\Lab9\\bai5\\bai5\\Libraries" -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+..\main.c: In function 'check_data_transmis':
+..\main.c:237:2: error: expected ';' before '}' token
+  }
+  ^
+14:15:52 **** Incremental Build of configuration Debug for project bai5 ****
+Info: Internal Builder is used for build
+gcc "-IE:\\Funix302_iot\\Lab9\\bai5\\bai5\\Libraries" -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -o bai5.exe "Libraries\\queue.o" main.o 
+14:25:24 **** Incremental Build of configuration Debug for project bai5 ****
+Info: Internal Builder is used for build
+gcc "-IE:\\Funix302_iot\\Lab9\\bai5\\bai5\\Libraries" -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -o bai5.exe "Libraries\\queue.o" main.o 
