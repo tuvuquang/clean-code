@@ -1,0 +1,267 @@
+/*******************************************************************************
+ *
+ * Description: Lab12-1
+ *
+ *
+ * Last Changed By:  $Author: TrungNT $
+ * Revision:         $Revision: 1.0 $
+ * Last Changed:     $Date: 2/9/2021 $
+ *
+ ******************************************************************************/
+#include <stdio.h>
+#include <stdint.h>
+#include <queue.h>
+// Macro------------------------------------------------------------------
+#define SIZE_QUEUE_DATA_RX 256
+#if(SIZE_QUEUE_DATA_RX &(SIZE_QUEUE_DATA_RX - 1) != 0)
+#error "SIZE_QUEUE_DATA_RX must be a power of two"
+#endif
+
+/* state receiver */
+typedef enum {
+	RX_STATE_START_BYTE,
+	RX_STATE_DATA_BYTES,
+	RX_STATE_CXOR_BYTE
+} RX_STATE;
+/* @brief State frame uart */
+typedef enum {
+	UART_STATE_IDLE,
+	UART_STATE_DATA_RECEIVED,
+	UART_STATE_ACK_RECEIVED,
+	UART_STATE_NACK_RECEIVED,
+	UART_STATE_ERROR,
+	UART_STATE_RX_TIMEOUT,
+
+} UART_STATE;
+/* @brief Size of rx buffer*/
+#define RX_BUFFER_SIZE 				16
+
+/* @brief Frame of frame */
+#define FRAME_SOF					0xB1
+
+/* @brief ack and nack */
+#define FRAME_ACK					0x06
+#define FRAME_NACK					0x15
+
+/* @brief check xor init */
+#define CXOR_INIT_VAL				0xFF
+
+/* @brief Field	type*/
+#define CMD_TYPE_GET				0x00
+#define CMD_TYPE_RES				0x01
+#define CMD_TYPE_SET				0x02
+
+
+/* @brief Field command id*/
+#define CMD_ID_DEVICE				0x00
+#define CMD_ID_LED					0x01
+#define CMD_ID_BUZZER				0x04
+#define CMD_ID_BUTTON				0x82
+#define CMD_ID_TEMP_SENSOR			0x84
+#define CMD_ID_HUMI_SENSOR			0x85
+#define CMD_ID_LIGHT_SENSOR			0x86
+#define CMD_ID_LCD					0x87
+
+#define FRAME_SIZE_MAX				9
+
+//---------------------------------------------------------------------
+/*Define variables*****************************************************/
+typedef struct{
+	uint8_t cmtid;
+	uint8_t type;
+}frm_common_t;
+
+typedef struct{
+	uint8_t cmtid;
+	uint8_t type;
+	uint8_t infor;
+}frm_device_infor_t;
+
+typedef struct{
+	uint8_t cmtid;
+	uint8_t type;
+	uint8_t state;
+}frm_buzzer_state_t;
+
+typedef struct{
+	uint8_t cmtid;
+	uint8_t type;
+	uint8_t value;
+}frm_light_sensor_t;
+
+typedef struct{
+	uint8_t cmtid;
+	uint8_t type;
+	uint8_t value;
+}frm_temperature_sensor_t;
+
+typedef struct{
+	uint8_t cmtid;
+	uint8_t type;
+	uint8_t value;
+}frm_humidity_sensor_t;
+
+typedef struct{
+	uint8_t cmtid;
+	uint8_t type;
+	uint8_t text[20];
+}frm_lcd_display_t;
+
+typedef struct{
+	uint8_t cmtid;
+	uint8_t type;
+	uint8_t numID;
+	uint8_t state;
+}frm_led_indicator_t;
+
+
+
+
+
+
+
+
+
+/*	Private variables**************************************************/
+static uint8_t byRxBufState;
+static uint8_t byIndexRxBuf;
+static uint8_t byCheckXorRxBuf;
+static buffqueue_t serialQueueRx;
+static uint8_t pBuffDataRx[SIZE_QUEUE_DATA_RX];
+uint8_t byRxBuffer[RX_BUFFER_SIZE] = { 0 };
+
+//-----------------------------------------------------------------------
+uint8_t SerialPoll(void);
+void UartCommandProcess(void *arg);
+//-----------------------------------------------------------------------
+int main() {
+	// Define Strings
+	uint8_t i;
+	uint8_t stateRx;
+
+	unsigned int frame[9];
+
+	bufInit(pBuffDataRx, &serialQueueRx, sizeof(pBuffDataRx[0]),
+			SIZE_QUEUE_DATA_RX);
+	printf("Enter Frame: ");
+
+	for (i = 0; i < 9; i++) {
+		fflush(stdout);
+		scanf("%x", &frame[i]);
+		bufEnDat(&serialQueueRx, (uint8_t*) &frame[i]);
+	}
+//-----------------------------------------------------------------------------------------------
+	stateRx = SerialPoll();
+	if (stateRx != UART_STATE_IDLE) {
+		switch (stateRx) {
+		case UART_STATE_ACK_RECEIVED:
+			printf("UART_STATE_ACK_RECEIVED\r\n");
+			break;
+
+		case UART_STATE_NACK_RECEIVED:
+			printf("UART_STATE_NACK_RECEIVED\r\n");
+			break;
+
+		case UART_STATE_DATA_RECEIVED:
+			printf("UART_STATE_DATA_RECEIVED\n");
+			break;
+
+		case UART_STATE_ERROR:
+		case UART_STATE_RX_TIMEOUT:
+			printf("UART_STATE_RX_TIMEOUT\r\n");
+			break;
+
+		default:
+			break;
+		}
+	}
+	getchar();
+	getchar();
+	return 0;
+}
+uint8_t SerialPoll(void) {
+	uint8_t byRxData;
+	uint8_t byUartState = (uint8_t) UART_STATE_IDLE;
+	while ((bufNumItems(&serialQueueRx) != 0)
+			&& (byUartState == UART_STATE_IDLE)) {
+		bufDeDat(&serialQueueRx, &byRxData);
+		switch (byRxBufState) {
+
+		case RX_STATE_START_BYTE:
+			if (byRxData == FRAME_SOF) {
+				byIndexRxBuf = 0;
+				byCheckXorRxBuf = CXOR_INIT_VAL;
+				byRxBufState = RX_STATE_DATA_BYTES;
+			} else if (byRxData == FRAME_ACK) {
+				byUartState = UART_STATE_ACK_RECEIVED;
+			} else if (byRxData == FRAME_NACK) {
+				byUartState = UART_STATE_NACK_RECEIVED;
+			} else {
+				byUartState = UART_STATE_ERROR;
+			}
+			break;
+
+		case RX_STATE_DATA_BYTES:
+			if (byIndexRxBuf < RX_BUFFER_SIZE) {
+				byRxBuffer[byIndexRxBuf] = byRxData;
+				if (byIndexRxBuf > 0) {
+					byCheckXorRxBuf ^= byRxData;
+				}
+				if (++byIndexRxBuf == *byRxBuffer) {
+					byRxBufState = RX_STATE_CXOR_BYTE;
+				}
+			} else {
+				byRxBufState = RX_STATE_START_BYTE;
+				byUartState = UART_STATE_ERROR;
+			}
+			break;
+
+		case RX_STATE_CXOR_BYTE: {
+			if (byRxData == byCheckXorRxBuf) {
+				byUartState = UART_STATE_DATA_RECEIVED;
+			} else {
+				byUartState = UART_STATE_ERROR;
+			}
+			default:
+			byRxBufState = RX_STATE_START_BYTE;
+			break;
+		}
+
+		}
+	}
+	return byUartState;
+}
+/**
+ * @func 		procUartCmd
+ * @brief		Process command uart
+ * @param		None
+ * @retval		None
+ */
+void UartCommandProcess(void *arg)
+{
+	frm_common_t *pCmd = (frm_common_t *) arg;
+
+	switch(pCmd->cmtid)
+	{
+	case CMD_ID_LED:
+		break;
+
+	case CMD_ID_BUZZER:
+		break;
+
+	case CMD_ID_LIGHT_SENSOR:
+		break;
+
+	case CMD_ID_TEMP_SENSOR:
+		break;
+
+	case CMD_ID_HUMI_SENSOR:
+		break;
+
+	case CMD_ID_LCD:
+		break;
+
+	default:
+		break;
+	}
+}

@@ -1,0 +1,116 @@
+19:06:55 **** Rebuild of configuration Debug for project lab12_1 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+..\main.c: In function 'main':
+..\main.c:62:10: warning: passing argument 1 of 'bufInit' from incompatible pointer type
+  bufInit(pBuffDataRx, &serialQueueRx, sizeof(pBuffDataRx[0]),
+          ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:70:1: note: expected 'buffqueue_p' but argument is of type 'uint8_t *'
+ bufInit(
+ ^
+..\main.c:62:2: error: too many arguments to function 'bufInit'
+  bufInit(pBuffDataRx, &serialQueueRx, sizeof(pBuffDataRx[0]),
+  ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:70:1: note: declared here
+ bufInit(
+ ^
+..\main.c:69:3: error: too few arguments to function 'bufEnDat'
+   bufEnDat(&serialQueueRx, (uint8_t*) &frame[i]);
+   ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:104:1: note: declared here
+ bufEnDat(
+ ^
+..\main.c: In function 'SerialPoll':
+..\main.c:106:3: error: too few arguments to function 'bufDeDat'
+   bufDeDat(&serialQueueRx, &byRxData);
+   ^
+In file included from ..\main.c:13:0:
+C:/Program Files (x86)/Dev-Cpp/MinGW64/include/queue.h:118:1: note: declared here
+ bufDeDat(
+ ^
+19:10:52 **** Incremental Build of configuration Debug for project lab12_1 ****
+Info: Internal Builder is used for build
+gcc "-IE:\\Funix302_iot\\Lab12\\lab12_1\\lab12_1\\Libraries" -O0 -g3 -Wall -c -fmessage-length=0 -o "Libraries\\queue.o" "..\\Libraries\\queue.c" 
+gcc "-IE:\\Funix302_iot\\Lab12\\lab12_1\\lab12_1\\Libraries" -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -o lab12_1.exe "Libraries\\queue.o" main.o 
+00:00:38 **** Incremental Build of configuration Debug for project lab12_1 ****
+Info: Internal Builder is used for build
+gcc "-IE:\\Funix302_iot\\Lab12\\lab12_1\\lab12_1\\Libraries" -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+..\main.c: In function 'check_data_transmis':
+..\main.c:194:6: error: 'CMD_ID' undeclared (first use in this function)
+  if (CMD_ID== 0x00)
+      ^
+..\main.c:194:6: note: each undeclared identifier is reported only once for each function it appears in
+..\main.c:196:6: error: 'CMD_TYPE' undeclared (first use in this function)
+   if(CMD_TYPE == 0x00)
+      ^
+..\main.c:205:7: error: 'CMD_DATA_STATE' undeclared (first use in this function)
+    if(CMD_DATA_STATE == 0xff)
+       ^
+13:13:30 **** Incremental Build of configuration Debug for project lab12_1 ****
+Info: Internal Builder is used for build
+gcc "-IE:\\Funix302_iot\\Lab12\\lab12_1\\lab12_1\\Libraries" -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+..\main.c:135:13: warning: 'check_data_transmis' used but never defined
+ static void check_data_transmis(void);
+             ^
+gcc -o lab12_1.exe "Libraries\\queue.o" main.o 
+main.o: In function `main':
+E:\Funix302_iot\Lab12\lab12_1\lab12_1\Debug/../main.c:167: undefined reference to `check_data_transmis'
+collect2.exe: error: ld returned 1 exit status
+13:25:01 **** Incremental Build of configuration Debug for project lab12_1 ****
+Info: Internal Builder is used for build
+gcc "-IE:\\Funix302_iot\\Lab12\\lab12_1\\lab12_1\\Libraries" -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+..\main.c: In function 'UartCommandProcess':
+..\main.c:248:2: error: expected expression before '}' token
+  }
+  ^
+..\main.c:248:2: error: label at end of compound statement
+..\main.c: At top level:
+..\main.c:135:13: warning: 'check_data_transmis' used but never defined
+ static void check_data_transmis(void);
+             ^
+13:29:01 **** Incremental Build of configuration Debug for project lab12_1 ****
+Info: Internal Builder is used for build
+gcc "-IE:\\Funix302_iot\\Lab12\\lab12_1\\lab12_1\\Libraries" -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+..\main.c: In function 'UartCommandProcess':
+..\main.c:250:7: error: 'CMD' undeclared (first use in this function)
+  case CMD
+       ^
+..\main.c:250:7: note: each undeclared identifier is reported only once for each function it appears in
+..\main.c:251:2: error: expected ':' or '...' before '}' token
+  }
+  ^
+..\main.c:250:7: error: label at end of compound statement
+  case CMD
+       ^
+..\main.c: At top level:
+..\main.c:135:13: warning: 'check_data_transmis' used but never defined
+ static void check_data_transmis(void);
+             ^
+13:30:39 **** Incremental Build of configuration Debug for project lab12_1 ****
+Info: Internal Builder is used for build
+gcc "-IE:\\Funix302_iot\\Lab12\\lab12_1\\lab12_1\\Libraries" -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+..\main.c:135:13: warning: 'check_data_transmis' used but never defined
+ static void check_data_transmis(void);
+             ^
+gcc -o lab12_1.exe "Libraries\\queue.o" main.o 
+main.o: In function `main':
+E:\Funix302_iot\Lab12\lab12_1\lab12_1\Debug/../main.c:167: undefined reference to `check_data_transmis'
+collect2.exe: error: ld returned 1 exit status
+13:31:00 **** Incremental Build of configuration Debug for project lab12_1 ****
+Info: Internal Builder is used for build
+gcc "-IE:\\Funix302_iot\\Lab12\\lab12_1\\lab12_1\\Libraries" -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -o lab12_1.exe "Libraries\\queue.o" main.o 
+13:32:11 **** Incremental Build of configuration Debug for project lab12_1 ****
+Info: Internal Builder is used for build
+gcc "-IE:\\Funix302_iot\\Lab12\\lab12_1\\lab12_1\\Libraries" -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -o lab12_1.exe "Libraries\\queue.o" main.o 
+Info: Nothing to build for lab12_1
+Info: Nothing to build for lab12_1
+13:42:10 **** Incremental Build of configuration Debug for project lab12_1 ****
+Info: Internal Builder is used for build
+gcc "-IE:\\Funix302_iot\\Lab12\\lab12_1\\lab12_1\\Libraries" -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -o lab12_1.exe "Libraries\\queue.o" main.o 

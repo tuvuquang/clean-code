@@ -1,0 +1,7 @@
+13:42:10 **** Incremental Build of configuration Debug for project lab12_1 ****
+Info: Internal Builder is used for build
+gcc "-IE:\\Funix302_iot\\Lab12\\lab12_1\\lab12_1\\Libraries" -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -o lab12_1.exe "Libraries\\queue.o" main.o 
+
+13:42:10 Build Finished. 0 errors, 0 warnings. (took 469ms)
+
