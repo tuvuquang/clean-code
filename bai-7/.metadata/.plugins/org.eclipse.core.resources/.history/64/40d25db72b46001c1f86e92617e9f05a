@@ -1,0 +1,55 @@
+/*******************************************************************************
+ *
+ * Description: Lab3
+ * Project name: Bai 1
+ *
+ *
+ * Last Changed By:  $Author: TrungNT $
+ * Revision:         $Revision: 1.0 $
+ * Last Changed:     $Date: 15/11/2021 $
+ *
+ ******************************************************************************/
+
+#include <stdint.h>
+#include <stm32f401re_gpio.h>
+#include <stm32f401re_exti.h>
+#include <stm32f401re_syscfg.h>
+#include <stm32f401re_rcc.h>
+#include <misc.h>
+
+#define	HIGH								0
+#define BTN_PRESS							HIGH
+// Define Logic GPIO_PIN
+
+#define GPIO_PIN_SET						1
+#define GPIO_PIN_RESET						0
+#define GPIO_PIN_LOW						0
+#define GPIO_PIN_HIGH						1
+
+// Define GPIO PIN
+
+#define LED_GPIO_PORT					GPIOA
+#define LED_GPIO_PIN						GPIO_Pin_5
+#define LED_PIN9							5
+#define LEDControl_SetClock				RCC_AHB1Periph_GPIOA
+
+#define BUTTON_GPIO_PORT					GPIOC
+#define BUTTON_GPIO_PIN						GPIO_Pin_13
+#define BUTTON_PIN3							13
+#define BUTTONControl_SetClock				RCC_AHB1Periph_GPIOC
+static void Led_Init(void)
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+
+	RCC_AHB1PeriphClockCmd(LEDControl_SetClock, ENABLE);
+
+	GPIO_InitStructure.GPIO_Pin = LED_GPIO_PIN
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+}
+int main(void)
+{
+    /* Loop forever */
+	for(;;);
+}

@@ -1,0 +1,26 @@
+/*******************************************************************************
+ *
+ * Description: Lab3
+ * Project name: Bai 1
+ *
+ *
+ * Last Changed By:  $Author: TrungNT $
+ * Revision:         $Revision: 1.0 $
+ * Last Changed:     $Date: 15/11/2021 $
+ *
+ ******************************************************************************/
+
+#include <stdint.h>
+#include <stm32f401re_gpio.h>
+#include <stm32f401re_exti.h>
+#include <stm32f401re_syscfg.h>
+
+static void Led_Init(void)
+{
+
+}
+int main(void)
+{
+    /* Loop forever */
+	for(;;);
+}
